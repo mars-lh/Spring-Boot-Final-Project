@@ -4,10 +4,12 @@ import com.project.java.project.springboot.model.bookings.BookingEntity;
 import com.project.java.project.springboot.model.enums.AirlinesEnum;
 import com.project.java.project.springboot.model.enums.FlightStatusEnum;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Date;
 import java.util.List;
 
+@Data
 @Entity
 @Table(name = "flights")
 public class FlightsEntity {

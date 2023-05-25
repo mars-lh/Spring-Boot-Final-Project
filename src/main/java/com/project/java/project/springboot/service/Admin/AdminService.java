@@ -1,9 +1,8 @@
-package com.project.java.project.springboot.service.adminService;
+package com.project.java.project.springboot.service.Admin;
 
 import com.project.java.project.springboot.model.admin.AdminDTO;
 import com.project.java.project.springboot.model.admin.AdminDTOResponse;
 import com.project.java.project.springboot.model.admin.AdminEntity;
-import com.project.java.project.springboot.model.user.UserDTORequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

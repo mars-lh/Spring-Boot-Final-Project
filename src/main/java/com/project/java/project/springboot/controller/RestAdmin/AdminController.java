@@ -2,10 +2,7 @@ package com.project.java.project.springboot.controller.RestAdmin;
 
 import com.project.java.project.springboot.model.admin.AdminDTO;
 import com.project.java.project.springboot.model.admin.AdminDTOResponse;
-import com.project.java.project.springboot.model.admin.AdminEntity;
-import com.project.java.project.springboot.model.user.UserDTORequest;
-import com.project.java.project.springboot.model.user.UserDTOResponse;
-import com.project.java.project.springboot.service.adminService.AdminService;
+import com.project.java.project.springboot.service.Admin.AdminService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
