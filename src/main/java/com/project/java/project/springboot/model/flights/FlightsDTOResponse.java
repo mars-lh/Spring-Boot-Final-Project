@@ -1,5 +1,6 @@
 package com.project.java.project.springboot.model.flights;
 
+import com.project.java.project.springboot.model.bookings.BookingEntity;
 import com.project.java.project.springboot.model.enums.AirlinesEnum;
 import com.project.java.project.springboot.model.enums.FlightStatusEnum;
 import lombok.AllArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -30,6 +32,8 @@ public class FlightsDTOResponse {
     private Date arrivalDate;
 
     private FlightStatusEnum flightStatus;
+
+    private List<BookingEntity> bookings;
 
 
     public FlightsDTOResponse(FlightsEntity flighTosave) {

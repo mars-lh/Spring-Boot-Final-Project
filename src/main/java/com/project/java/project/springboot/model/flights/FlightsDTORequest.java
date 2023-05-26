@@ -34,6 +34,8 @@ public class FlightsDTORequest {
 
     private FlightStatusEnum flightStatus;
 
+    private List <BookingEntity> bookings;
+
 
     public FlightsEntity toEntity () {
         FlightsEntity flights = new FlightsEntity();

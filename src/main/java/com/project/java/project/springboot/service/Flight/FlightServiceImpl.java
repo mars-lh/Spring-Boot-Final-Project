@@ -43,5 +43,28 @@ public class FlightServiceImpl implements FlightService{
         flightRepository.deleteById(id);
     }
 
+    @Override
+    public Optional<FlightsDTOResponse> updateFlightDetails(Long id, FlightsDTORequest flightDTO) {
+        Optional<FlightsEntity> optionalFlights = flightRepository.findById(id);
+        if (optionalFlights.isPresent()) {
+            FlightsEntity existingFlight = optionalFlights.get();
+            existingFlight.setFlightNumber(flightDTO.getFlightNumber());
+            existingFlight.setFlightStatus(flightDTO.getFlightStatus());
+            existingFlight.setDestinationAirport(flightDTO.getDestinationAirport());
+            existingFlight.setDestinationCountry(flightDTO.getDestinationCountry());
+            existingFlight.setOriginAirport(flightDTO.getOriginAirport());
+            existingFlight.setOriginCountry(flightDTO.getOriginCountry());
+            existingFlight.setAirline_code(flightDTO.getAirline_code());
+            existingFlight.setBookings(flightDTO.getBookings());
+            flightRepository.save(existingFlight);
+            FlightsDTOResponse updatedFlightDTO = new FlightsDTOResponse(existingFlight);
+            return Optional.of(updatedFlightDTO);
+
+        } else {
+            return Optional.of(createFlight(flightDTO));
+        }
+
+    }
+
 
 }

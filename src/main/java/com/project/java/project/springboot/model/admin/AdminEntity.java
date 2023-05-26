@@ -39,4 +39,12 @@ public class AdminEntity {
         }
     }
 
+    @Override
+    public String toString() {
+        return "AdminEntity{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                '}';
+    }
 }

@@ -18,4 +18,6 @@ public interface FlightService {
     List<FlightsDTOResponse> findALlFlights ();
 
     void deleteFlightById (Long id);
+
+    Optional<FlightsDTOResponse> updateFlightDetails (Long id, FlightsDTORequest flightDTO);
 }

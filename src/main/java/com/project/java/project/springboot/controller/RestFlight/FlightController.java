@@ -38,6 +38,12 @@ public class FlightController {
         return ResponseEntity.ok(flightService.findFlightByID(id));
     }
 
+    @PutMapping("/updateFlight/{id}")
+    public ResponseEntity<Optional<FlightsDTOResponse>> updateResource(@PathVariable (value = "id") Long id, @RequestBody FlightsDTORequest updateflight) {
+
+          Optional<FlightsDTOResponse> update =  flightService.updateFlightDetails(id, updateflight);
+          return ResponseEntity.ok(update);
+    }
 
     @DeleteMapping("/flight/{id}")
     public ResponseEntity<String> deleteFlightById(@PathVariable (value = "id") Long id) throws ChangeSetPersister.NotFoundException {
