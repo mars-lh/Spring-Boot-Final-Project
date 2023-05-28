@@ -1,19 +1,24 @@
 package com.project.java.project.springboot.service.userService;
 
 import com.project.java.project.springboot.model.admin.AdminEntity;
+import com.project.java.project.springboot.model.bookings.BookingRequestDTO;
 import com.project.java.project.springboot.model.user.UserDTORequest;
 import com.project.java.project.springboot.model.user.UserDTOResponse;
 import com.project.java.project.springboot.model.user.UserEntity;
+import com.project.java.project.springboot.model.userBookings.UserBookingsRequestDTO;
 import com.project.java.project.springboot.repository.AdminRepository;
+import com.project.java.project.springboot.repository.UserBookingRepository;
 import com.project.java.project.springboot.repository.UserRepository;
-import org.springframework.security.core.userdetails.User;
+import com.project.java.project.springboot.service.booking.BookingService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -21,11 +26,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
     private final AdminRepository adminRepository;
+    private final UserBookingRepository userBookingsRepository;
+    private final BookingService bookingService;
 
-    public UserServiceImpl(UserRepository userRepository, AdminRepository adminRepository) {
+    public UserServiceImpl(UserRepository userRepository, AdminRepository adminRepository, UserBookingRepository userBookingsRepository, BookingService bookingService) {
         this.userRepository = userRepository;
         this.adminRepository = adminRepository;
+        this.userBookingsRepository = userBookingsRepository;
+        this.bookingService = bookingService;
+    }
 
+
+    @Override
+    public List<UserDTOResponse> findAll() {
+        return userRepository.findAll().stream().map(UserDTOResponse::new).collect(Collectors.toList());
     }
 
     @Override
@@ -39,6 +53,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public UserDTOResponse registerUserDTODetails(UserDTORequest userDTO) {
         UserEntity user = userDTO.toEntityUserDetails();
         userRepository.save(user);
+
+        List<BookingRequestDTO> bookingRequestDTOs = new ArrayList<>();
+        for (BookingRequestDTO bookingDTO : userDTO.getUserDetailDTO().getBookingRequestDTO()) {
+            BookingRequestDTO bookingRequestDTO = new BookingRequestDTO();
+            bookingRequestDTO.setBookingStatusEnum(bookingDTO.getBookingStatusEnum());
+            // Set any other required fields of the bookingRequestDTO
+            bookingRequestDTOs.add(bookingRequestDTO);
+        }
+
+        // Call the saveBooking method for each booking
+        for (BookingRequestDTO bookingRequestDTO : bookingRequestDTOs) {
+            bookingService.saveBooking(bookingRequestDTO);
+        }
+
         return new UserDTOResponse(userDTO);
     }
 
@@ -59,8 +87,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
         throw new UsernameNotFoundException("Username not found");
     }
-
-
 
 
     private UserDetails toUserDetails(UserEntity user) {

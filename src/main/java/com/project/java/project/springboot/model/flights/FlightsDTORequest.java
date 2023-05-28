@@ -16,6 +16,8 @@ import java.util.List;
 @Data
 public class FlightsDTORequest {
 
+    private Long id;
+
     private String flightNumber;
 
     private String originAirport;
@@ -39,6 +41,7 @@ public class FlightsDTORequest {
 
     public FlightsEntity toEntity () {
         FlightsEntity flights = new FlightsEntity();
+        flights.setId(this.id);
         flights.setFlightNumber(this.flightNumber);
         flights.setAirline_code(this.airline_code);
         flights.setOriginCountry(this.originCountry);
@@ -48,6 +51,13 @@ public class FlightsDTORequest {
         flights.setDepartureDate(this.departureDate);
         flights.setArrivalDate(this.arrivalDate);
         flights.setFlightStatus(this.flightStatus);
+
+        if (bookings != null) {
+            for (BookingEntity booking : bookings) {
+                booking.setFlights(flights);
+            }
+        }
+
         return flights;
     }
 

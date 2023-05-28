@@ -4,14 +4,14 @@ import com.project.java.project.springboot.model.enums.RoleEnum;
 import lombok.Data;
 
 @Data
-public class RolesDTO {
+public class RolesRequestDTO {
 
 
     private RoleEnum role;
     private String description;
 
 
-    public RolesDTO(RolesEntity role) {
+    public RolesRequestDTO(RolesEntity role) {
         this.role = role.getRole();
         this.description = role.getDescription();
     }

@@ -18,4 +18,7 @@ public class UserDTOResponse {
         this.username = user.getUsername();
         this.role = user.getUserRole();
     }
+
+    public UserDTOResponse(UserEntity userEntity) {
+    }
 }

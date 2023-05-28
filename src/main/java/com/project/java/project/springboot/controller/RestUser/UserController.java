@@ -4,9 +4,12 @@ import com.project.java.project.springboot.model.user.UserDTORequest;
 import com.project.java.project.springboot.model.user.UserDTOResponse;
 import com.project.java.project.springboot.service.userService.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 @RestController
 public class UserController {
@@ -17,11 +20,11 @@ public class UserController {
         this.userService = userService;
     }
 
-//
-//    @GetMapping("/users")
-//    public ResponseEntity<List<UserDTOResponse>> laodAllUsers () {
-//        return ResponseEntity.ok(userService.registerUserDTO());
-//    }
+
+    @GetMapping("/user")
+    public ResponseEntity<List<UserDTOResponse>> laodAllUsers () {
+        return ResponseEntity.ok(userService.findAll());
+    }
 
 
     @PostMapping("/new")
