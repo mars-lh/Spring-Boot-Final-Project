@@ -1,5 +1,6 @@
 package com.project.java.project.springboot.model.flights;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.project.java.project.springboot.model.bookings.BookingEntity;
 import com.project.java.project.springboot.model.enums.AirlinesEnum;
 import com.project.java.project.springboot.model.enums.FlightStatusEnum;
@@ -14,6 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class FlightsDTORequest {
 
     private Long id;

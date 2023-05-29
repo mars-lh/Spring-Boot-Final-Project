@@ -1,5 +1,7 @@
 package com.project.java.project.springboot.model.bookings;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.java.project.springboot.model.enums.BookingStatusEnum;
 import com.project.java.project.springboot.model.flights.FlightsDTORequest;
 import com.project.java.project.springboot.model.flights.FlightsEntity;
@@ -18,6 +20,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookingRequestDTO {
 
     private Long id;
@@ -28,6 +31,7 @@ public class BookingRequestDTO {
 
     private List<UserBookingsRequestDTO> userBookings = new ArrayList<>();
 
+    @JsonProperty("flights")
     private FlightsDTORequest flights;
 
 

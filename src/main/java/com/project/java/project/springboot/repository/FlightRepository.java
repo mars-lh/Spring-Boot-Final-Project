@@ -8,4 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface FlightRepository extends JpaRepository <FlightsEntity, Long> {
 
     void deleteById(Long id);
+
+    FlightsEntity findFlightsEntityByFlightNumber(String searchString);
 }

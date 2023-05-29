@@ -1,5 +1,6 @@
 package com.project.java.project.springboot.model.userDetail;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.project.java.project.springboot.model.admin.AdminEntity;
 import com.project.java.project.springboot.model.enums.RoleEnum;
 import com.project.java.project.springboot.model.userBookings.UserBookingsEntity;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDetailDTOResponse {
 
     private String firstName;
@@ -39,16 +41,7 @@ public class UserDetailDTOResponse {
     }
 
 
-    public UserDetailDTOResponse(AdminEntity adminEntity) {
-        this.firstName = adminEntity.getUserDetail().getFirstName();
-        this.middleName = adminEntity.getUserDetail().getMiddleName();
-        this.lastName = adminEntity.getUserDetail().getLastName();
-        this.email = adminEntity.getUserDetail().getEmail();
-        this.phoneNumber = adminEntity.getUserDetail().getPhoneNumber();
-        this.userRole = adminEntity.getUserRole();
-        this.userBookings = adminEntity.getUserDetail().getUserBookings();
 
-    }
 
 
     public UserDetailDTOResponse(UserDetailEntity userDetail) {

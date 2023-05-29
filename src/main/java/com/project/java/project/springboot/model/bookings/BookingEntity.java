@@ -36,4 +36,13 @@ public class BookingEntity {
     @JoinColumn (name = "flight_id", referencedColumnName = "id")
     private FlightsEntity flights;
 
+    @Override
+    public String toString() {
+        return "BookingEntity{" +
+                "id=" + id +
+                ", bookingDate=" + bookingDate +
+                ", bookingStatus=" + bookingStatus +
+                ", flights=" + (flights != null ? flights.getFlightNumber() : null) +
+                '}';
+    }
 }

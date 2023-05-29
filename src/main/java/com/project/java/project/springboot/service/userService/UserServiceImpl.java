@@ -2,6 +2,7 @@ package com.project.java.project.springboot.service.userService;
 
 import com.project.java.project.springboot.model.admin.AdminEntity;
 import com.project.java.project.springboot.model.bookings.BookingRequestDTO;
+import com.project.java.project.springboot.model.enums.BookingStatusEnum;
 import com.project.java.project.springboot.model.user.UserDTORequest;
 import com.project.java.project.springboot.model.user.UserDTOResponse;
 import com.project.java.project.springboot.model.user.UserEntity;
@@ -10,6 +11,7 @@ import com.project.java.project.springboot.repository.AdminRepository;
 import com.project.java.project.springboot.repository.UserBookingRepository;
 import com.project.java.project.springboot.repository.UserRepository;
 import com.project.java.project.springboot.service.booking.BookingService;
+import com.project.java.project.springboot.service.booking.FlightNotFoundException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -50,24 +52,33 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDTOResponse registerUserDTODetails(UserDTORequest userDTO) {
+    public UserDTOResponse registerUserDTODetails(UserDTORequest userDTO) throws FlightNotFoundException {
         UserEntity user = userDTO.toEntityUserDetails();
         userRepository.save(user);
 
-        List<BookingRequestDTO> bookingRequestDTOs = new ArrayList<>();
-        for (BookingRequestDTO bookingDTO : userDTO.getUserDetailDTO().getBookingRequestDTO()) {
-            BookingRequestDTO bookingRequestDTO = new BookingRequestDTO();
-            bookingRequestDTO.setBookingStatusEnum(bookingDTO.getBookingStatusEnum());
-            // Set any other required fields of the bookingRequestDTO
-            bookingRequestDTOs.add(bookingRequestDTO);
-        }
-
-        // Call the saveBooking method for each booking
-        for (BookingRequestDTO bookingRequestDTO : bookingRequestDTOs) {
-            bookingService.saveBooking(bookingRequestDTO);
-        }
-
         return new UserDTOResponse(userDTO);
+    }
+
+    @Override
+    public Optional<UserDTOResponse> bookFlight(Long userid, UserDTORequest userDTO) throws FlightNotFoundException {
+     Optional<UserEntity> optionalUser = userRepository.findById(userid);
+        if (optionalUser.isPresent()){
+            UserEntity existingUser = optionalUser.get();
+            List<BookingRequestDTO> bookingRequestDTOs = new ArrayList<>();
+            for (BookingRequestDTO bookingDTO : userDTO.getBookingRequestDTO()) {
+                BookingRequestDTO bookingRequestDTO = new BookingRequestDTO();
+                bookingRequestDTO.setBookingStatusEnum(BookingStatusEnum.BOOKED);
+                bookingRequestDTO.setFlights(bookingDTO.getFlights());
+//                bookingRequestDTO.setUserBookings();
+                // Set any other required fields of the bookingRequestDTO
+                bookingRequestDTOs.add(bookingRequestDTO);
+            }
+
+            // Call the saveBooking method for each booking
+            for (BookingRequestDTO bookingRequestDTO : bookingRequestDTOs) {
+                bookingService.saveBooking(bookingRequestDTO, userid);
+            }
+        }  return Optional.of(new UserDTOResponse(userDTO)) ;
     }
 
 
@@ -93,7 +104,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .roles(user.getRoles().toString())
+                .authorities(user.getUserRole().toString())
                 .build();
     }
 
@@ -101,7 +112,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .roles(user.getRoles().toString())
+                .authorities(user.getUserRole().toString())
                 .build();
     }
 

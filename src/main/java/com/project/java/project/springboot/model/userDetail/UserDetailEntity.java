@@ -1,5 +1,6 @@
 package com.project.java.project.springboot.model.userDetail;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.java.project.springboot.model.admin.AdminEntity;
 import com.project.java.project.springboot.model.bookings.BookingEntity;
 import com.project.java.project.springboot.model.enums.RoleEnum;
@@ -22,10 +23,12 @@ public class UserDetailEntity {
     private Long id;
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity user;
 
     @OneToOne
+    @JsonIgnore
     @JoinColumn(name = "admin_id", referencedColumnName = "id")
     private AdminEntity adminUser;
 
@@ -41,6 +44,7 @@ public class UserDetailEntity {
     @Column(name = "email_address", unique = true)
     private String email;
 
+    @JsonIgnore
     @Column (name = "phone_number")
     private Long phoneNumber;
 

@@ -1,6 +1,7 @@
 package com.project.java.project.springboot.model.user;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.project.java.project.springboot.model.bookings.BookingEntity;
@@ -15,9 +16,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserDTORequest {
 
     private Long id;
@@ -31,6 +36,8 @@ public class UserDTORequest {
     private RolesRequestDTO rolesRequestDTO;
 
     private UserDetailDTORequest userDetailDTO;
+
+    private List<BookingRequestDTO> bookingRequestDTO =  new ArrayList<>();
 
 
 

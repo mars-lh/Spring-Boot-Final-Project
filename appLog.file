@@ -1,0 +1,103 @@
+2023-05-28 19:12:16,969 [INFO] com.project.java.project.springboot.ProjectSpringBootApplication [restartedMain] Starting ProjectSpringBootApplication using Java 17.0.5 with PID 3672 (C:\Users\U760179\Documents\Projects\project-spring-boot\target\classes started by U760179 in C:\Users\U760179\Documents\Projects\project-spring-boot)
+2023-05-28 19:12:16,970 [DEBUG] com.project.java.project.springboot.ProjectSpringBootApplication [restartedMain] Running with Spring Boot v3.0.5, Spring v6.0.7
+2023-05-28 19:12:16,971 [INFO] com.project.java.project.springboot.ProjectSpringBootApplication [restartedMain] No active profile set, falling back to 1 default profile: "default"
+2023-05-28 19:12:17,006 [INFO] org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor [restartedMain] Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-28 19:12:17,006 [INFO] org.springframework.boot.devtools.env.DevToolsPropertyDefaultsPostProcessor [restartedMain] For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-28 19:12:17,455 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-28 19:12:17,520 [INFO] org.springframework.data.repository.config.RepositoryConfigurationDelegate [restartedMain] Finished Spring Data repository scanning in 59 ms. Found 6 JPA repository interfaces.
+2023-05-28 19:12:17,909 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat initialized with port(s): 8080 (http)
+2023-05-28 19:12:17,914 [INFO] org.apache.catalina.core.StandardService [restartedMain] Starting service [Tomcat]
+2023-05-28 19:12:17,914 [INFO] org.apache.catalina.core.StandardEngine [restartedMain] Starting Servlet engine: [Apache Tomcat/10.1.7]
+2023-05-28 19:12:17,951 [INFO] org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] [restartedMain] Initializing Spring embedded WebApplicationContext
+2023-05-28 19:12:17,951 [INFO] org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext [restartedMain] Root WebApplicationContext: initialization completed in 945 ms
+2023-05-28 19:12:18,034 [INFO] org.hibernate.jpa.internal.util.LogHelper [restartedMain] HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-28 19:12:18,059 [INFO] org.hibernate.Version [restartedMain] HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-05-28 19:12:18,205 [INFO] com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Starting...
+2023-05-28 19:12:18,236 [INFO] com.zaxxer.hikari.pool.HikariPool [restartedMain] HikariPool-1 - Added connection org.mariadb.jdbc.Connection@58335664
+2023-05-28 19:12:18,238 [INFO] com.zaxxer.hikari.HikariDataSource [restartedMain] HikariPool-1 - Start completed.
+2023-05-28 19:12:18,251 [INFO] SQL dialect [restartedMain] HHH000400: Using dialect: org.hibernate.dialect.MariaDBDialect
+2023-05-28 19:12:18,758 [INFO] org.hibernate.engine.transaction.jta.platform.internal.JtaPlatformInitiator [restartedMain] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-28 19:12:18,764 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-28 19:12:19,079 [DEBUG] com.project.java.project.springboot.config.TokenFilter [restartedMain] Filter 'tokenFilter' configured for use
+2023-05-28 19:12:19,191 [WARN] org.springframework.boot.autoconfigure.orm.jpa.JpaBaseConfiguration$JpaWebConfiguration [restartedMain] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-28 19:12:19,397 [INFO] org.springframework.security.web.DefaultSecurityFilterChain [restartedMain] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@67242d19, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@54db2902, org.springframework.security.web.context.SecurityContextHolderFilter@205f1a52, org.springframework.security.web.header.HeaderWriterFilter@3cb54eab, org.springframework.security.web.authentication.logout.LogoutFilter@1e1a45d6, com.project.java.project.springboot.config.TokenFilter@74c1a4c9, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@51be8427, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7e21a001, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1c4a3a49, org.springframework.security.web.session.SessionManagementFilter@1c7c7910, org.springframework.security.web.access.ExceptionTranslationFilter@39287eca, org.springframework.security.web.access.intercept.AuthorizationFilter@64daf978]
+2023-05-28 19:12:19,560 [INFO] org.springframework.boot.devtools.autoconfigure.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2023-05-28 19:12:19,587 [INFO] org.springframework.boot.web.embedded.tomcat.TomcatWebServer [restartedMain] Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-28 19:12:19,595 [INFO] com.project.java.project.springboot.ProjectSpringBootApplication [restartedMain] Started ProjectSpringBootApplication in 2.917 seconds (process running for 3.448)
+2023-05-28 19:13:28,953 [INFO] org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-28 19:13:28,955 [INFO] com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2023-05-28 19:13:28,958 [INFO] com.zaxxer.hikari.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.
+2023-05-28T19:13:31.418+02:00  INFO 8300 --- [restartedMain] c.p.j.p.s.ProjectSpringBootApplication   : Starting ProjectSpringBootApplication using Java 17.0.5 with PID 8300 (C:\Users\U760179\Documents\Projects\project-spring-boot\target\classes started by U760179 in C:\Users\U760179\Documents\Projects\project-spring-boot)
+2023-05-28T19:13:31.420+02:00 DEBUG 8300 --- [restartedMain] c.p.j.p.s.ProjectSpringBootApplication   : Running with Spring Boot v3.0.5, Spring v6.0.7
+2023-05-28T19:13:31.420+02:00  INFO 8300 --- [restartedMain] c.p.j.p.s.ProjectSpringBootApplication   : No active profile set, falling back to 1 default profile: "default"
+2023-05-28T19:13:31.454+02:00  INFO 8300 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-05-28T19:13:31.454+02:00  INFO 8300 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-05-28T19:13:31.921+02:00  INFO 8300 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2023-05-28T19:13:31.987+02:00  INFO 8300 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 60 ms. Found 6 JPA repository interfaces.
+2023-05-28T19:13:32.375+02:00  INFO 8300 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8080 (http)
+2023-05-28T19:13:32.380+02:00  INFO 8300 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2023-05-28T19:13:32.381+02:00  INFO 8300 --- [restartedMain] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/10.1.7]
+2023-05-28T19:13:32.420+02:00  INFO 8300 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2023-05-28T19:13:32.420+02:00  INFO 8300 --- [restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 965 ms
+2023-05-28T19:13:32.503+02:00  INFO 8300 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2023-05-28T19:13:32.529+02:00  INFO 8300 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 6.1.7.Final
+2023-05-28T19:13:32.665+02:00  INFO 8300 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2023-05-28T19:13:32.697+02:00  INFO 8300 --- [restartedMain] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection org.mariadb.jdbc.Connection@451e94e
+2023-05-28T19:13:32.699+02:00  INFO 8300 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2023-05-28T19:13:32.714+02:00  INFO 8300 --- [restartedMain] SQL dialect                              : HHH000400: Using dialect: org.hibernate.dialect.MariaDBDialect
+2023-05-28T19:13:33.239+02:00  INFO 8300 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2023-05-28T19:13:33.246+02:00  INFO 8300 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2023-05-28T19:13:33.557+02:00 DEBUG 8300 --- [restartedMain] c.p.j.p.springboot.config.TokenFilter    : Filter 'tokenFilter' configured for use
+2023-05-28T19:13:33.650+02:00  WARN 8300 --- [restartedMain] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2023-05-28T19:13:33.845+02:00  INFO 8300 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@51099d44, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3289c01, org.springframework.security.web.context.SecurityContextHolderFilter@21907116, org.springframework.security.web.header.HeaderWriterFilter@2919a7b0, org.springframework.security.web.authentication.logout.LogoutFilter@422d0a8c, com.project.java.project.springboot.config.TokenFilter@482b6554, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@333ce254, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7948ac73, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@40ee6ea6, org.springframework.security.web.session.SessionManagementFilter@16a02ff9, org.springframework.security.web.access.ExceptionTranslationFilter@5891ecab, org.springframework.security.web.access.intercept.AuthorizationFilter@9e8ef70]
+2023-05-28T19:13:33.989+02:00  INFO 8300 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2023-05-28T19:13:34.014+02:00  INFO 8300 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2023-05-28T19:13:34.022+02:00  INFO 8300 --- [restartedMain] c.p.j.p.s.ProjectSpringBootApplication   : Started ProjectSpringBootApplication in 2.89 seconds (process running for 3.436)
+2023-05-28T19:19:01.867+02:00  INFO 8300 --- [SpringApplicationShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2023-05-28T19:19:01.870+02:00  INFO 8300 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2023-05-28T19:19:01.873+02:00  INFO 8300 --- [SpringApplicationShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2023-05-28T19:20:42.525+02:00 ERROR 1468 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+java.lang.IllegalStateException: java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.rolling.RollingFileAppender[FILE_APPENDER] - Failed to create parent directories for [C:\Users\U748375\Desktop\logs\log_file.log]
+ERROR in ch.qos.logback.core.rolling.RollingFileAppender[FILE_APPENDER] - openFile(C:/Users/U748375/Desktop/logs/log_file.log,true) call failed. java.io.FileNotFoundException: C:\Users\U748375\Desktop\logs\log_file.log (The system cannot find the path specified)
+ERROR in ch.qos.logback.core.rolling.RollingFileAppender[FILE_APPENDER] - Failed to create parent directories for [C:\Users\U748375\Desktop\logs\log_file.log]
+ERROR in ch.qos.logback.core.rolling.RollingFileAppender[FILE_APPENDER] - openFile(C:/Users/U748375/Desktop/logs/log_file.log,true) call failed. java.io.FileNotFoundException: C:\Users\U748375\Desktop\logs\log_file.log (The system cannot find the path specified)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:347)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initialize(LoggingApplicationListener.java:298)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEnvironmentPreparedEvent(LoggingApplicationListener.java:246)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.onApplicationEvent(LoggingApplicationListener.java:223)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.doInvokeListener(SimpleApplicationEventMulticaster.java:176)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.invokeListener(SimpleApplicationEventMulticaster.java:169)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:143)
+	at org.springframework.context.event.SimpleApplicationEventMulticaster.multicastEvent(SimpleApplicationEventMulticaster.java:131)
+	at org.springframework.boot.context.event.EventPublishingRunListener.multicastInitialEvent(EventPublishingRunListener.java:136)
+	at org.springframework.boot.context.event.EventPublishingRunListener.environmentPrepared(EventPublishingRunListener.java:81)
+	at org.springframework.boot.SpringApplicationRunListeners.lambda$environmentPrepared$2(SpringApplicationRunListeners.java:64)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:118)
+	at org.springframework.boot.SpringApplicationRunListeners.doWithListeners(SpringApplicationRunListeners.java:112)
+	at org.springframework.boot.SpringApplicationRunListeners.environmentPrepared(SpringApplicationRunListeners.java:63)
+	at org.springframework.boot.SpringApplication.prepareEnvironment(SpringApplication.java:354)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:305)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1304)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1293)
+	at com.project.java.project.springboot.ProjectSpringBootApplication.main(ProjectSpringBootApplication.java:10)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49)
+Caused by: java.lang.IllegalStateException: Logback configuration error detected: 
+ERROR in ch.qos.logback.core.rolling.RollingFileAppender[FILE_APPENDER] - Failed to create parent directories for [C:\Users\U748375\Desktop\logs\log_file.log]
+ERROR in ch.qos.logback.core.rolling.RollingFileAppender[FILE_APPENDER] - openFile(C:/Users/U748375/Desktop/logs/log_file.log,true) call failed. java.io.FileNotFoundException: C:\Users\U748375\Desktop\logs\log_file.log (The system cannot find the path specified)
+ERROR in ch.qos.logback.core.rolling.RollingFileAppender[FILE_APPENDER] - Failed to create parent directories for [C:\Users\U748375\Desktop\logs\log_file.log]
+ERROR in ch.qos.logback.core.rolling.RollingFileAppender[FILE_APPENDER] - openFile(C:/Users/U748375/Desktop/logs/log_file.log,true) call failed. java.io.FileNotFoundException: C:\Users\U748375\Desktop\logs\log_file.log (The system cannot find the path specified)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.reportConfigurationErrorsIfNecessary(LogbackLoggingSystem.java:260)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.loadConfiguration(LogbackLoggingSystem.java:247)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initializeWithConventions(AbstractLoggingSystem.java:80)
+	at org.springframework.boot.logging.AbstractLoggingSystem.initialize(AbstractLoggingSystem.java:60)
+	at org.springframework.boot.logging.logback.LogbackLoggingSystem.initialize(LogbackLoggingSystem.java:187)
+	at org.springframework.boot.context.logging.LoggingApplicationListener.initializeSystem(LoggingApplicationListener.java:332)
+	... 24 common frames omitted
+
