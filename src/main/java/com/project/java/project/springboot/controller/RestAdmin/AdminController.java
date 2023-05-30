@@ -2,9 +2,14 @@ package com.project.java.project.springboot.controller.RestAdmin;
 
 import com.project.java.project.springboot.model.admin.AdminDTO;
 import com.project.java.project.springboot.model.admin.AdminDTOResponse;
+import com.project.java.project.springboot.model.custom.CustomResponse;
+import com.project.java.project.springboot.model.user.UserDTORequest;
+import com.project.java.project.springboot.model.user.UserDTOResponse;
 import com.project.java.project.springboot.model.userDetail.UserDetailDTOResponse;
 import com.project.java.project.springboot.service.Admin.AdminService;
 import com.project.java.project.springboot.service.booking.FlightNotFoundException;
+import com.project.java.project.springboot.service.userService.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -12,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 @RestController
 public class AdminController {
@@ -21,13 +25,22 @@ public class AdminController {
 
     private final UserDetailsService userDetailsService;
 
-    public AdminController(AdminService adminService, UserDetailsService userDetailsService) {
+    private final UserService userService;
+
+    public AdminController(AdminService adminService, UserDetailsService userDetailsService, UserService userService) {
         this.adminService = adminService;
         this.userDetailsService = userDetailsService;
+        this.userService = userService;
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @GetMapping("/all")
+    @GetMapping("/all/admins")
+    public ResponseEntity<List<AdminDTOResponse>> loadAllAdmins () {
+        return ResponseEntity.status(201).body(adminService.findAllUsers());
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/all/users")
     public ResponseEntity<List<AdminDTOResponse>> loadAllUsers () {
         return ResponseEntity.status(201).body(adminService.findAllUsers());
     }
@@ -40,15 +53,17 @@ public class AdminController {
          return ResponseEntity.ok(result);
     }
 
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PostMapping ("/create")
+    public ResponseEntity<UserDTOResponse> createUser (@RequestBody UserDTORequest userDTO) throws FlightNotFoundException {
+        return ResponseEntity.status(HttpStatus.CREATED).body(userService.registerUserDTODetails(userDTO));
 
-    @PostMapping ("/reg2")
-    public ResponseEntity<AdminDTOResponse> registerAdmin (@RequestBody AdminDTO adminDTO) {
-        return ResponseEntity.status(201).body(adminService.registerAdminDTO(adminDTO));
     }
 
     @PostMapping("/new1")
-    public ResponseEntity<AdminDTOResponse> saveUser (@RequestBody AdminDTO adminDTO) throws FlightNotFoundException {
-        return ResponseEntity.ok().body(adminService.registerUserDTODetails(adminDTO));
+    public ResponseEntity<AdminDTOResponse> createAdmin (@RequestBody AdminDTO adminDTO) throws FlightNotFoundException {
+        return ResponseEntity.ok().body(adminService.registerAdminDTODetails(adminDTO));
     }
+
 
 }

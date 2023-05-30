@@ -22,7 +22,7 @@ public class AdminEntity {
     @Column(name = "password")
     private  String password;
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "adminUser", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
+    @OneToOne(mappedBy = "adminUser", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)
     private UserDetailEntity userDetail;
 
     @OneToOne(mappedBy = "admin", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE}, orphanRemoval = true)

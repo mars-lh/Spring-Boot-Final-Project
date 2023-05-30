@@ -1,14 +1,18 @@
 package com.project.java.project.springboot.controller.RestFlight;
 
 
+import com.project.java.project.springboot.model.enums.FlightStatusEnum;
 import com.project.java.project.springboot.model.flights.FlightsDTORequest;
 import com.project.java.project.springboot.model.flights.FlightsDTOResponse;
-import com.project.java.project.springboot.repository.FlightRepository;
+import com.project.java.project.springboot.model.flights.FlightsEntity;
 import com.project.java.project.springboot.service.Flight.FlightService;
 import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -34,28 +38,43 @@ public class FlightController {
     }
 
     @GetMapping("/flights/{id}")
-    ResponseEntity<Optional<FlightsDTOResponse>> findFlightbyID (@PathVariable (value = "id") Long id) throws ChangeSetPersister.NotFoundException {
+    ResponseEntity <FlightsDTOResponse> findFlightbyID (@PathVariable (value = "id") Long id) throws ChangeSetPersister.NotFoundException {
+        FlightsDTOResponse existingFlight = flightService.findFlightByID(id);
+        if (!existingFlight.getId().equals(id)) {
+            return (ResponseEntity<FlightsDTOResponse>) ResponseEntity.status(HttpStatus.NOT_FOUND);
+        }
         return ResponseEntity.ok(flightService.findFlightByID(id));
     }
 
     @PutMapping("/updateFlight/{id}")
-    public ResponseEntity<Optional<FlightsDTOResponse>> updateResource(@PathVariable (value = "id") Long id, @RequestBody FlightsDTORequest updateflight) {
-
-          Optional<FlightsDTOResponse> update =  flightService.updateFlightDetails(id, updateflight);
-          return ResponseEntity.ok(update);
+    public ResponseEntity <FlightsDTOResponse> updateFlight(@PathVariable (value = "id") Long id, @RequestBody FlightsDTORequest updateflight) throws ChangeSetPersister.NotFoundException {
+        FlightsEntity eligibleFlight = flightService.flightEntityforDate(id);
+        Date flightActualDate = eligibleFlight.getDepartureDate();
+        if (updateflight == null) {
+            return ResponseEntity.notFound().build();
+        }else if (eligibleFlight.getFlightStatus().equals(FlightStatusEnum.BOOKED) && updateflight.getDepartureDate().after(flightActualDate) && eligibleFlight.getArrivalDate().after(updateflight.getDepartureDate())) {
+          FlightsDTOResponse update =  flightService.updateFlightDepartureDate(id, updateflight);
+            return ResponseEntity.ok(update);
+        } else if (!eligibleFlight.getFlightStatus().equals(FlightStatusEnum.BOOKED)) {
+           Optional<FlightsDTOResponse> updateEverything = flightService.updateFlightDetails(id, updateflight);
+           FlightsDTOResponse UpdateToDTO = updateEverything.get();
+           return ResponseEntity.ok(UpdateToDTO);
+        }
+          return ResponseEntity.ok(null);
     }
 
     @DeleteMapping("/flight/{id}")
     public ResponseEntity<String> deleteFlightById(@PathVariable (value = "id") Long id) throws ChangeSetPersister.NotFoundException {
-        Optional<FlightsDTOResponse> getById = flightService.findFlightByID(id);
-        if (getById.isEmpty()) {
+        FlightsDTOResponse getById = flightService.findFlightByID(id);
+        if (getById.getFlightStatus().equals(null)) {
             return ResponseEntity.notFound().build();
-        }
-
+        }else if (!flightService.findFlightByID(id).getFlightStatus().equals(FlightStatusEnum.BOOKED)) {
         flightService.deleteFlightById(id);
-        return ResponseEntity.ok("Resource deleted successfully");
+        return ResponseEntity.ok("Flight deleted successfully");
+        } else {
+            return ResponseEntity.ok("Flight could not be deleted because is already booked");
+        }
     }
-
 
     }
 

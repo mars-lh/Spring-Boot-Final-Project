@@ -45,17 +45,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public UserDTOResponse registerUserDTO(UserDTORequest userDTO) {
-        UserEntity userTosave = userDTO.toEntity();
-       userRepository.save(userTosave);
-       return new UserDTOResponse(userDTO);
-    }
-
-    @Override
     public UserDTOResponse registerUserDTODetails(UserDTORequest userDTO) throws FlightNotFoundException {
         UserEntity user = userDTO.toEntityUserDetails();
         userRepository.save(user);
-
         return new UserDTOResponse(userDTO);
     }
 

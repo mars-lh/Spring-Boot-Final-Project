@@ -15,8 +15,6 @@ public interface UserService {
 
     List<UserDTOResponse> findAll ();
 
-    UserDTOResponse registerUserDTO (UserDTORequest userDTO);
-
     UserDTOResponse registerUserDTODetails (UserDTORequest userDTO) throws FlightNotFoundException;
 
     Optional<UserDTOResponse> bookFlight (Long id, UserDTORequest userDTO) throws FlightNotFoundException;

@@ -10,4 +10,8 @@ public interface FlightRepository extends JpaRepository <FlightsEntity, Long> {
     void deleteById(Long id);
 
     FlightsEntity findFlightsEntityByFlightNumber(String searchString);
+
+    FlightsEntity findFlightsEntityById (Long id);
+
+
 }

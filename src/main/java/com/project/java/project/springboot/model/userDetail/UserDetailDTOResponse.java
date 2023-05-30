@@ -30,27 +30,27 @@ public class UserDetailDTOResponse {
 
     private List<UserBookingsEntity> userBookings = new ArrayList<>();
 
-    public UserDetailDTOResponse(String firstName, String middleName, String lastName, String email, Long phoneNumber, RoleEnum userRole, List<UserBookingsEntity> userBookings) {
-        this.firstName = firstName;
-        this.middleName = middleName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-        this.userRole = userRole;
-        this.userBookings = userBookings;
-    }
 
 
-
-
-
-    public UserDetailDTOResponse(UserDetailEntity userDetail) {
+    public UserDetailDTOResponse (UserDetailEntity userDetail) {
         this.firstName =userDetail.getFirstName();
         this.middleName = userDetail.getMiddleName();
         this.lastName = userDetail.getLastName();
         this.email = userDetail.getEmail();
         this.phoneNumber = userDetail.getPhoneNumber();
         this.userRole = userDetail.getUserRole();
-        this.userBookings = userDetail.getUserBookings();
+        this.userBookings = userDetail.getUserBookings().stream().toList();
+    }
+
+    public UserDetailDTOResponse mpaDTO (UserDetailEntity userDetail) {
+        UserDetailDTOResponse userDetailDTOResponse = new UserDetailDTOResponse();
+        userDetailDTOResponse.setFirstName(userDetail.getFirstName());
+        userDetailDTOResponse.setMiddleName(userDetail.getMiddleName());
+        userDetailDTOResponse.setLastName(userDetail.getLastName());
+        userDetailDTOResponse.setEmail(userDetail.getEmail());
+        userDetailDTOResponse.setPhoneNumber(userDetail.getPhoneNumber());
+        userDetailDTOResponse.setUserRole(userDetail.getUserRole());
+//        userDetailDTOResponse.setUserBookings(userDetail.getUserBookings().stream().toList());
+        return userDetailDTOResponse;
     }
 }

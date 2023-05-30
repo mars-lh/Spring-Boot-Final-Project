@@ -5,6 +5,7 @@ import com.project.java.project.springboot.model.enums.BookingStatusEnum;
 import com.project.java.project.springboot.model.flights.FlightsEntity;
 import com.project.java.project.springboot.model.userBookings.UserBookingsEntity;
 import com.project.java.project.springboot.model.userBookings.UserBookingsRequestDTO;
+import com.project.java.project.springboot.model.userBookings.UserBookingsResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -25,12 +26,24 @@ public class BookingResponseDTO {
 
        private FlightsEntity flights;
 
+       private List<UserBookingsResponseDTO> userBookings;
+
 
 
         public BookingResponseDTO(BookingEntity bookingEntity) {
                 this.bookingDate = bookingEntity.getBookingDate();
                 this.bookingStatus = bookingEntity.getBookingStatus();
                 this.flights = bookingEntity.getFlights();
+                this.userBookings = convertToUserBookingsResponseDTO(bookingEntity.getUserBookings());
         }
+
+    private List<UserBookingsResponseDTO> convertToUserBookingsResponseDTO(List<UserBookingsEntity> userBookings) {
+        List<UserBookingsResponseDTO> userBookingsDTO = new ArrayList<>();
+        for (UserBookingsEntity userBooking : userBookings) {
+            UserBookingsResponseDTO userBookingDTO = new UserBookingsResponseDTO(userBooking);
+            userBookingsDTO.add(userBookingDTO);
+        }
+        return userBookingsDTO;
+    }
 }
 

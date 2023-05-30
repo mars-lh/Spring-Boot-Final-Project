@@ -5,5 +5,6 @@ public enum FlightStatusEnum {
     ACTIVE,
     CANCELLED,
     LANDED,
-    AIRBORNE
+    AIRBORNE,
+    BOOKED
 }
