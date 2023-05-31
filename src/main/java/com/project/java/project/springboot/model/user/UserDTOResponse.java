@@ -6,6 +6,7 @@ import com.project.java.project.springboot.model.bookings.BookingResponseDTO;
 import com.project.java.project.springboot.model.enums.RoleEnum;
 import com.project.java.project.springboot.model.flights.FlightsDTORequest;
 import com.project.java.project.springboot.model.userBookings.UserBookingsEntity;
+import com.project.java.project.springboot.model.userDetail.UserDetailEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,8 +31,7 @@ public class UserDTOResponse {
         this.role = user.getUserRole();
     }
 
-    public UserDTOResponse(UserBookingsEntity userEntity) {
-    }
+
 
     public UserDTOResponse(UserEntity userEntity) {
     }

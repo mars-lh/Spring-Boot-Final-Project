@@ -12,17 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public interface BookingService {
 
-//     void createBookingWithUserBookings(BookingRequestDTO bookingRequestDTO);
-
-     BookingEntity createBooking(BookingRequestDTO bookinDTO);
-
-     UserBookingsEntity createUserBooking(BookingEntity booking);
-
 
      void addBookingToUserBooking(BookingEntity booking, UserBookingsEntity userBooking);
 
      BookingResponseDTO saveBooking(BookingRequestDTO bookingRequestDTO, Long userid) throws FlightNotFoundException;
 
-     FlightsEntity bookFlight (BookingRequestDTO bookingRequestDTO) throws FlightNotFoundException;
+     FlightsEntity checkFlight(BookingRequestDTO bookingRequestDTO) throws FlightNotFoundException;
 
 }

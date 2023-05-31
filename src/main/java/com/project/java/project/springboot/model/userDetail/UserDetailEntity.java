@@ -23,12 +23,12 @@ public class UserDetailEntity {
     private Long id;
 
     @OneToOne
-    @JsonIgnore
+
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     private UserEntity user;
 
     @OneToOne
-    @JsonIgnore
+
     @JoinColumn(name = "admin_id", referencedColumnName = "id")
     private AdminEntity adminUser;
 

@@ -1,6 +1,7 @@
 package com.project.java.project.springboot.service.userService;
 
 
+import com.project.java.project.springboot.model.bookings.BookingResponseDTO;
 import com.project.java.project.springboot.model.flights.FlightsDTORequest;
 import com.project.java.project.springboot.model.flights.FlightsDTOResponse;
 import com.project.java.project.springboot.model.user.UserDTORequest;

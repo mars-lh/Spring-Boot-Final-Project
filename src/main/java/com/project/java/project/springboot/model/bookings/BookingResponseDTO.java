@@ -17,7 +17,6 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookingResponseDTO {
 
         private Date bookingDate;
@@ -25,11 +24,6 @@ public class BookingResponseDTO {
         private BookingStatusEnum bookingStatus;
 
        private FlightsEntity flights;
-
-
-//       private List<UserBookingsResponseDTO> userBookings;
-
-
 
         public BookingResponseDTO(BookingEntity bookingEntity) {
                 this.bookingDate = bookingEntity.getBookingDate();

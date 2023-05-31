@@ -20,7 +20,7 @@ public class UserBookingsEntity {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "userDetail_id")
     private UserDetailEntity user;
 
     @ManyToOne(fetch = FetchType.LAZY)

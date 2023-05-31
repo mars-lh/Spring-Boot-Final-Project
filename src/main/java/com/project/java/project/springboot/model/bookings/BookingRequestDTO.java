@@ -42,6 +42,11 @@ public class BookingRequestDTO {
         booking.setId(this.id);
         booking.setBookingStatus(BookingStatusEnum.BOOKED);
         booking.setBookingDate(new Date());
+        List<UserBookingsEntity> userBookingsEntities = new ArrayList<>();
+        for (UserBookingsRequestDTO userBookingDTO : this.userBookings) {
+            UserBookingsEntity userBookingsEntity = userBookingDTO.toEntity();
+            userBookingsEntities.add(userBookingsEntity);
+        }
         return booking;
     }
 

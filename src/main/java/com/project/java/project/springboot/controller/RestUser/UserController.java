@@ -20,7 +20,7 @@ public class UserController {
 
     private final UserService userService;
 
-    public UserController(UserService userService, FlightService flightService) {
+    public UserController(UserService userService) {
         this.userService = userService;
 
     }
@@ -34,8 +34,6 @@ public class UserController {
     @PreAuthorize("hasAuthority('ROLE_TRAVELLER')")
     @PostMapping("/findFlight")
     public ResponseEntity<Optional<List<FlightsDTOResponse>>> findFlightsByDestination (@RequestBody FlightsDTORequest flightsDTORequest) {
-//        FlightsDTORequest flightsDTORequest = new FlightsDTORequest();
-//        flightsDTORequest.setDestinationCountry(destination);
         return ResponseEntity.ok(userService.findFlights(flightsDTORequest));
     }
 

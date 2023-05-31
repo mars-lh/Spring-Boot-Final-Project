@@ -10,6 +10,8 @@ import com.project.java.project.springboot.model.userDetail.UserDetailEntity;
 import com.project.java.project.springboot.repository.*;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,24 +30,6 @@ public class BookingServiceImpl implements BookingService{
         this.userRepository = userRepository;
         this.userDetailRepository = userDetailRepository;
     }
-//    @Override
-//    public void createBookingWithUserBookings(BookingRequestDTO bookingRequestDTO) {
-//        BookingEntity booking = createBooking(bookingRequestDTO);
-//        UserBookingsEntity userBooking1 = createUserBooking(booking);
-//        UserBookingsEntity userBooking2 = createUserBooking(booking);
-//        addBookingToUserBooking(booking, userBooking1);
-//        addBookingToUserBooking(booking, userBooking2);
-//        saveBooking(bookingRequestDTO);
-//    }
-    @Override
-    public BookingEntity createBooking(BookingRequestDTO bookingDTO) {
-        BookingEntity booking = bookingDTO.toEntity();
-        return bookingRepository.save(booking);
-    }
-    @Override
-    public UserBookingsEntity createUserBooking(BookingEntity booking) {
-        return null;
-    }
 
     @Override
     public void addBookingToUserBooking(BookingEntity booking, UserBookingsEntity userBooking) {
@@ -54,25 +38,27 @@ public class BookingServiceImpl implements BookingService{
 
     @Override
     public BookingResponseDTO saveBooking(BookingRequestDTO bookingRequestDTO, Long userid) throws FlightNotFoundException {
-        FlightsEntity flight = bookFlight(bookingRequestDTO);
+        FlightsEntity flight = checkFlight(bookingRequestDTO);
         BookingEntity bookingEntity = bookingRequestDTO.toEntity();
         bookingEntity.setFlights(flight);
         bookingRepository.save(bookingEntity);
 
         UserBookingsEntity userBookingsEntity = new UserBookingsEntity();
-        userBookingsEntity.setBooking(bookingEntity);
-        userBookingsEntity.setBookingStatus(bookingEntity.getBookingStatus());
-
-       UserDetailEntity  userEntity = userDetailRepository.findByAdminUser_Id(userid);
+        UserDetailEntity  userEntity = userDetailRepository.findByUser(userid);
         userBookingsEntity.setUser(userEntity);
+        userBookingsEntity.setBookingStatus(bookingEntity.getBookingStatus());
+        userBookingsEntity.setBooking(bookingEntity);
+        bookingEntity.setUserBookings(userBookingsEntity.getBooking().getUserBookings());
+
         userBookingRepository.save(userBookingsEntity);
+
 
         return new BookingResponseDTO(bookingEntity);
 
     }
 
     @Override
-    public FlightsEntity bookFlight (BookingRequestDTO bookingRequestDTO) throws FlightNotFoundException {
+    public FlightsEntity checkFlight (BookingRequestDTO bookingRequestDTO) throws FlightNotFoundException {
         String flightNumber = bookingRequestDTO.getFlights().getFlightNumber();
         FlightsEntity flight = flightRepository.findFlightsEntityByFlightNumber(flightNumber);
 
