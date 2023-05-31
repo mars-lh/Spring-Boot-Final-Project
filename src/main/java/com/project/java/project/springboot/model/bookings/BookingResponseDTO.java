@@ -17,7 +17,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@JsonInclude(JsonInclude.Include.NON_NULL)
+//@JsonInclude(JsonInclude.Include.NON_NULL)
 public class BookingResponseDTO {
 
         private Date bookingDate;
@@ -26,7 +26,8 @@ public class BookingResponseDTO {
 
        private FlightsEntity flights;
 
-       private List<UserBookingsResponseDTO> userBookings;
+
+//       private List<UserBookingsResponseDTO> userBookings;
 
 
 
@@ -34,8 +35,20 @@ public class BookingResponseDTO {
                 this.bookingDate = bookingEntity.getBookingDate();
                 this.bookingStatus = bookingEntity.getBookingStatus();
                 this.flights = bookingEntity.getFlights();
-                this.userBookings = convertToUserBookingsResponseDTO(bookingEntity.getUserBookings());
         }
+
+      public BookingResponseDTO (UserBookingsEntity userBookingsEntity) {
+          BookingEntity booking = new BookingEntity();
+          booking.setUserBookings(userBookingsEntity.getUser().getUserBookings());
+
+            this.bookingDate = booking.getBookingDate();
+            this.bookingStatus = booking.getBookingStatus();
+            this.flights = booking.getFlights();
+
+    }
+
+
+
 
     private List<UserBookingsResponseDTO> convertToUserBookingsResponseDTO(List<UserBookingsEntity> userBookings) {
         List<UserBookingsResponseDTO> userBookingsDTO = new ArrayList<>();
@@ -44,6 +57,10 @@ public class BookingResponseDTO {
             userBookingsDTO.add(userBookingDTO);
         }
         return userBookingsDTO;
+    }
+
+
+    public void setBooking(BookingRequestDTO booking) {
     }
 }
 

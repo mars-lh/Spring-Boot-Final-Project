@@ -1,6 +1,8 @@
 package com.project.java.project.springboot.controller.RestFlight;
 
 
+import com.project.java.project.springboot.model.custom.ErrorResponseDTO;
+import com.project.java.project.springboot.model.enums.AirlinesEnum;
 import com.project.java.project.springboot.model.enums.FlightStatusEnum;
 import com.project.java.project.springboot.model.flights.FlightsDTORequest;
 import com.project.java.project.springboot.model.flights.FlightsDTOResponse;
@@ -12,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -28,9 +31,17 @@ public class FlightController {
 
 
     @PostMapping("/create/Flight")
-    ResponseEntity<FlightsDTOResponse> createFlight (@RequestBody FlightsDTORequest flightsDTORequest) {
-        return ResponseEntity.ok(flightService.createFlight(flightsDTORequest));
-    }
+    ResponseEntity<?> createFlight (@RequestBody FlightsDTORequest flightsDTORequest) {
+        boolean isValidAirline = Arrays.stream(AirlinesEnum.values())
+                .anyMatch(airlinesEnum ->airlinesEnum.name().equalsIgnoreCase(flightsDTORequest.getAirline_code().toString()));
+        if (isValidAirline) {
+            return ResponseEntity.ok(flightService.createFlight(flightsDTORequest));
+        } else {
+            String errorMessage = "Airline does not exist.";
+            ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(errorMessage);
+            return ResponseEntity.badRequest().body(errorResponseDTO);
+        }
+        }
 
     @GetMapping("/flights")
     ResponseEntity<List<FlightsDTOResponse>> loadAllFlights () {

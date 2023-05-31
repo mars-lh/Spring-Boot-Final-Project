@@ -49,20 +49,9 @@ public class FlightServiceImpl implements FlightService{
 
     @Override
     public void deleteFlightById(Long id) {
-        if(canBedeleted(id)){
-        flightRepository.deleteById(id);}
-        else {
-            System.out.println("Flight cannot be deleted because is booked");
-        }
+        flightRepository.deleteById(id);
     }
 
-    public boolean canBedeleted (Long flightId) {
-      Optional<FlightsDTOResponse> flightsDTOResponse = flightRepository.findById(flightId).map(FlightsDTOResponse::new);
-      if (flightsDTOResponse.isPresent() && flightsDTOResponse.get().getFlightStatus().equals(FlightStatusEnum.BOOKED)) {
-          return true;
-      }
-      return false;
-    }
 
     @Override
     public Optional<FlightsDTOResponse> updateFlightDetails(Long id, FlightsDTORequest flightDTO) {

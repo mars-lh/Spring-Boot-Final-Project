@@ -4,6 +4,9 @@ import com.project.java.project.springboot.model.flights.FlightsEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
+import java.util.List;
+
 @Repository
 public interface FlightRepository extends JpaRepository <FlightsEntity, Long> {
 
@@ -13,5 +16,6 @@ public interface FlightRepository extends JpaRepository <FlightsEntity, Long> {
 
     FlightsEntity findFlightsEntityById (Long id);
 
+   List <FlightsEntity> findFlightsEntityByDestinationCountryAndOriginCountryAndFlightDate (String destination, String origin, Date flightDate);
 
 }

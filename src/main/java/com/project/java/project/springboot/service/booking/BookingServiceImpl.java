@@ -6,10 +6,8 @@ import com.project.java.project.springboot.model.bookings.BookingResponseDTO;
 import com.project.java.project.springboot.model.flights.FlightsEntity;
 import com.project.java.project.springboot.model.user.UserEntity;
 import com.project.java.project.springboot.model.userBookings.UserBookingsEntity;
-import com.project.java.project.springboot.repository.BookingRepository;
-import com.project.java.project.springboot.repository.FlightRepository;
-import com.project.java.project.springboot.repository.UserBookingRepository;
-import com.project.java.project.springboot.repository.UserRepository;
+import com.project.java.project.springboot.model.userDetail.UserDetailEntity;
+import com.project.java.project.springboot.repository.*;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -21,12 +19,14 @@ public class BookingServiceImpl implements BookingService{
     private final UserBookingRepository userBookingRepository;
     private final FlightRepository flightRepository;
     private final UserRepository userRepository;
+    private final UserDetailRepository userDetailRepository;
 
-    public BookingServiceImpl (BookingRepository bookingRepository, UserBookingRepository userBookingRepository, FlightRepository flightRepository, UserRepository userRepository) {
+    public BookingServiceImpl (BookingRepository bookingRepository, UserBookingRepository userBookingRepository, FlightRepository flightRepository, UserRepository userRepository, UserDetailRepository userDetailRepository) {
         this.bookingRepository = bookingRepository;
         this.userBookingRepository = userBookingRepository;
         this.flightRepository = flightRepository;
         this.userRepository = userRepository;
+        this.userDetailRepository = userDetailRepository;
     }
 //    @Override
 //    public void createBookingWithUserBookings(BookingRequestDTO bookingRequestDTO) {
@@ -63,10 +63,8 @@ public class BookingServiceImpl implements BookingService{
         userBookingsEntity.setBooking(bookingEntity);
         userBookingsEntity.setBookingStatus(bookingEntity.getBookingStatus());
 
-       Optional<UserEntity>  userEntity = userRepository.findById(userid);
-        userBookingsEntity.setUser(userEntity.get().getUserDetail());
-
-
+       UserDetailEntity  userEntity = userDetailRepository.findByAdminUser_Id(userid);
+        userBookingsEntity.setUser(userEntity);
         userBookingRepository.save(userBookingsEntity);
 
         return new BookingResponseDTO(bookingEntity);

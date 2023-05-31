@@ -7,6 +7,7 @@ import com.project.java.project.springboot.service.booking.BookingService;
 import com.project.java.project.springboot.service.booking.FlightNotFoundException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,9 +22,9 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
-//    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-//    @PostMapping("/newBooking")
-//    ResponseEntity<BookingResponseDTO> saveBooking (@RequestBody BookingRequestDTO bookingRequestDTO) throws FlightNotFoundException {
-//        return ResponseEntity.ok(bookingService.saveBooking(bookingRequestDTO));
-//    }
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PostMapping("/newBooking/{userid}")
+    ResponseEntity<BookingResponseDTO> saveBooking (@PathVariable(value = "userid")Long id, @RequestBody BookingRequestDTO bookingRequestDTO) throws FlightNotFoundException {
+        return ResponseEntity.ok(bookingService.saveBooking(bookingRequestDTO, id));
+    }
 }

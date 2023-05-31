@@ -11,5 +11,7 @@ public interface UserDetailRepository extends JpaRepository <UserDetailEntity, L
 
    UserDetailEntity findByEmail (String email);
 
+   UserDetailEntity findByAdminUser_Id (Long id);
+
 
 }

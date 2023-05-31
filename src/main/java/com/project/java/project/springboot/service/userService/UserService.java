@@ -1,6 +1,8 @@
 package com.project.java.project.springboot.service.userService;
 
 
+import com.project.java.project.springboot.model.flights.FlightsDTORequest;
+import com.project.java.project.springboot.model.flights.FlightsDTOResponse;
 import com.project.java.project.springboot.model.user.UserDTORequest;
 import com.project.java.project.springboot.model.user.UserDTOResponse;
 import com.project.java.project.springboot.service.booking.FlightNotFoundException;
@@ -18,6 +20,8 @@ public interface UserService {
     UserDTOResponse registerUserDTODetails (UserDTORequest userDTO) throws FlightNotFoundException;
 
     Optional<UserDTOResponse> bookFlight (Long id, UserDTORequest userDTO) throws FlightNotFoundException;
+
+    Optional<List<FlightsDTOResponse>> findFlights (FlightsDTORequest flightsDTORequest);
 
 
 

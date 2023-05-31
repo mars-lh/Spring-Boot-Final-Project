@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.project.java.project.springboot.model.admin.AdminEntity;
 import com.project.java.project.springboot.model.enums.RoleEnum;
 import com.project.java.project.springboot.model.userBookings.UserBookingsEntity;
+import com.project.java.project.springboot.model.userBookings.UserBookingsRequestDTO;
+import com.project.java.project.springboot.model.userBookings.UserBookingsResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -28,19 +30,7 @@ public class UserDetailDTOResponse {
 
     private RoleEnum userRole;
 
-    private List<UserBookingsEntity> userBookings = new ArrayList<>();
-
-
-
-    public UserDetailDTOResponse (UserDetailEntity userDetail) {
-        this.firstName =userDetail.getFirstName();
-        this.middleName = userDetail.getMiddleName();
-        this.lastName = userDetail.getLastName();
-        this.email = userDetail.getEmail();
-        this.phoneNumber = userDetail.getPhoneNumber();
-        this.userRole = userDetail.getUserRole();
-        this.userBookings = userDetail.getUserBookings().stream().toList();
-    }
+    private List<UserBookingsResponseDTO> userBookings = new ArrayList<>();
 
     public UserDetailDTOResponse mpaDTO (UserDetailEntity userDetail) {
         UserDetailDTOResponse userDetailDTOResponse = new UserDetailDTOResponse();
@@ -50,7 +40,17 @@ public class UserDetailDTOResponse {
         userDetailDTOResponse.setEmail(userDetail.getEmail());
         userDetailDTOResponse.setPhoneNumber(userDetail.getPhoneNumber());
         userDetailDTOResponse.setUserRole(userDetail.getUserRole());
-//        userDetailDTOResponse.setUserBookings(userDetail.getUserBookings().stream().toList());
+        List<UserBookingsResponseDTO> userBookingsDTO = convertToUserBookingsResponseDTO(userDetail.getUserBookings());
+        userDetailDTOResponse.setUserBookings(userBookingsDTO);
         return userDetailDTOResponse;
+    }
+
+    private List<UserBookingsResponseDTO> convertToUserBookingsResponseDTO(List<UserBookingsEntity> userBookings) {
+        List<UserBookingsResponseDTO> userBookingsDTO = new ArrayList<>();
+        for (UserBookingsEntity userBooking : userBookings) {
+            UserBookingsResponseDTO userBookingDTO = new UserBookingsResponseDTO(userBooking);
+            userBookingsDTO.add(userBookingDTO);
+        }
+        return userBookingsDTO;
     }
 }

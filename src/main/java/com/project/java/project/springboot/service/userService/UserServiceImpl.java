@@ -3,11 +3,14 @@ package com.project.java.project.springboot.service.userService;
 import com.project.java.project.springboot.model.admin.AdminEntity;
 import com.project.java.project.springboot.model.bookings.BookingRequestDTO;
 import com.project.java.project.springboot.model.enums.BookingStatusEnum;
+import com.project.java.project.springboot.model.flights.FlightsDTORequest;
+import com.project.java.project.springboot.model.flights.FlightsDTOResponse;
+import com.project.java.project.springboot.model.flights.FlightsEntity;
 import com.project.java.project.springboot.model.user.UserDTORequest;
 import com.project.java.project.springboot.model.user.UserDTOResponse;
 import com.project.java.project.springboot.model.user.UserEntity;
-import com.project.java.project.springboot.model.userBookings.UserBookingsRequestDTO;
 import com.project.java.project.springboot.repository.AdminRepository;
+import com.project.java.project.springboot.repository.FlightRepository;
 import com.project.java.project.springboot.repository.UserBookingRepository;
 import com.project.java.project.springboot.repository.UserRepository;
 import com.project.java.project.springboot.service.booking.BookingService;
@@ -28,13 +31,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserRepository userRepository;
     private final AdminRepository adminRepository;
-    private final UserBookingRepository userBookingsRepository;
+    private final FlightRepository flightRepository;
     private final BookingService bookingService;
 
-    public UserServiceImpl(UserRepository userRepository, AdminRepository adminRepository, UserBookingRepository userBookingsRepository, BookingService bookingService) {
+    public UserServiceImpl(UserRepository userRepository, AdminRepository adminRepository, UserBookingRepository userBookingsRepository, FlightRepository flightRepository, BookingService bookingService) {
         this.userRepository = userRepository;
         this.adminRepository = adminRepository;
-        this.userBookingsRepository = userBookingsRepository;
+        this.flightRepository = flightRepository;
         this.bookingService = bookingService;
     }
 
@@ -71,6 +74,16 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 bookingService.saveBooking(bookingRequestDTO, userid);
             }
         }  return Optional.of(new UserDTOResponse(userDTO)) ;
+    }
+
+    @Override
+    public Optional<List<FlightsDTOResponse>> findFlights(FlightsDTORequest flightsDTORequest) {
+        List<FlightsDTOResponse> DTOResult = new ArrayList<>();
+           for (FlightsEntity flightTopass : flightRepository.findFlightsEntityByDestinationCountryAndOriginCountryAndFlightDate(flightsDTORequest.getDestinationCountry(), flightsDTORequest.getOriginCountry(), flightsDTORequest.getFlightDate())){
+               FlightsDTOResponse newDTO = new FlightsDTOResponse(flightTopass);
+               DTOResult.add(newDTO);
+           }
+           return  Optional.of(DTOResult);
     }
 
 
