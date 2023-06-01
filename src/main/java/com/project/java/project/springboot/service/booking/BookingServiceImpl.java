@@ -3,7 +3,10 @@ package com.project.java.project.springboot.service.booking;
 import com.project.java.project.springboot.model.bookings.BookingEntity;
 import com.project.java.project.springboot.model.bookings.BookingRequestDTO;
 import com.project.java.project.springboot.model.bookings.BookingResponseDTO;
+import com.project.java.project.springboot.model.enums.BookingStatusEnum;
 import com.project.java.project.springboot.model.flights.FlightsEntity;
+import com.project.java.project.springboot.model.user.UserDTORequest;
+import com.project.java.project.springboot.model.user.UserDTOResponse;
 import com.project.java.project.springboot.model.user.UserEntity;
 import com.project.java.project.springboot.model.userBookings.UserBookingsEntity;
 import com.project.java.project.springboot.model.userDetail.UserDetailEntity;
@@ -68,6 +71,75 @@ public class BookingServiceImpl implements BookingService{
 
         return flight;
     }
+
+    @Override
+    public Optional<UserDTOResponse> bookFlightBooking(Long userid, UserDTORequest userDTO) throws FlightNotFoundException {
+        Optional<UserEntity> optionalUser = userRepository.findById(userid);
+        if (optionalUser.isPresent()){
+            List<BookingRequestDTO> bookingRequestDTOs = new ArrayList<>();
+            for (BookingRequestDTO bookingDTO : userDTO.getBookingRequestDTO()) {
+                BookingRequestDTO bookingRequestDTO = new BookingRequestDTO();
+                bookingRequestDTO.setBookingStatusEnum(BookingStatusEnum.BOOKED);
+                bookingRequestDTO.setFlights(bookingDTO.getFlights());
+                // Set any other required fields of the bookingRequestDTO
+                bookingRequestDTOs.add(bookingRequestDTO);
+            }
+            // Call the saveBooking method for each booking
+            for (BookingRequestDTO bookingRequestDTO : bookingRequestDTOs) {
+                saveBooking(bookingRequestDTO, userid);
+            }
+        }  return Optional.of(new UserDTOResponse(userDTO)) ;
+    }
+
+    @Override
+    public void cancelBooking(Long id) {
+        Optional <BookingEntity> booking = bookingRepository.findById(id);
+        if(adminResponse()){
+            booking.get().setBookingStatus(BookingStatusEnum.CANCELED);
+            bookingRepository.save(booking.get());}
+        else {booking.get().setBookingStatus(BookingStatusEnum.REQUEST_CANCELATION);
+        bookingRepository.save(booking.get());}
+        if (declines()){
+            booking.get().setBookingStatus(BookingStatusEnum.BOOKED);
+            bookingRepository.save(booking.get());
+        }
+    }
+
+    @Override
+    public List<BookingResponseDTO> getBookingsforApproval(BookingRequestDTO bookingStatus) {
+        List<BookingResponseDTO> bookingList = new ArrayList<>();
+
+//        List<BookingEntity> bookingEntityList2 = bookingRepository.findAll().stream().map(bookingList);
+        List<BookingEntity> bookingEntityList = bookingRepository.findAll().stream().toList();
+        for(BookingEntity booking : bookingEntityList) {
+            BookingResponseDTO bookingToSave = mapBookingEntityToResponseDTO(booking);
+          if (bookingToSave.getBookingStatus().equals(bookingStatus.getBookingStatusEnum())) {
+              bookingList.add(bookingToSave);
+          }
+        }
+        return bookingList;
+    }
+
+    private BookingResponseDTO mapBookingEntityToResponseDTO(BookingEntity bookingEntity) {
+        BookingResponseDTO bookingResponseDTO = new BookingResponseDTO();
+        // Map the properties from BookingEntity to BookingResponseDTO
+        bookingResponseDTO.setId(bookingEntity.getId());
+        bookingResponseDTO.setBookingStatus(bookingEntity.getBookingStatus());
+        bookingResponseDTO.setFlights(bookingEntity.getFlights());
+        // Map other properties as needed
+
+        return bookingResponseDTO;
+    }
+
+    public boolean adminResponse (){
+        return false;
+    }
+    public boolean declines () {
+        return false;
+    }
+
+
+
 
 
 }

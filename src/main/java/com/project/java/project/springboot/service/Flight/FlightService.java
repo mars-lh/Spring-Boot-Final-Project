@@ -13,6 +13,8 @@ public interface FlightService {
 
     FlightsDTOResponse createFlight (FlightsDTORequest flightsDTORequest);
 
+    FlightsDTORequest flightNumberGenerator(FlightsDTORequest flightsDTORequest);
+
     FlightsDTOResponse findFlightByID (Long id);
 
     FlightsEntity flightEntityforDate (Long id);

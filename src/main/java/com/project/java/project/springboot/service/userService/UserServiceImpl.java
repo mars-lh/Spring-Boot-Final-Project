@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public Optional<List<FlightsDTOResponse>> findFlights(FlightsDTORequest flightsDTORequest) {
         List<FlightsDTOResponse> DTOResult = new ArrayList<>();
-           for (FlightsEntity flightTopass : flightRepository.findFlightsEntityByDestinationCountryAndOriginCountryAndFlightDate(flightsDTORequest.getDestinationCountry(), flightsDTORequest.getOriginCountry(), flightsDTORequest.getFlightDate())){
+           for (FlightsEntity flightTopass : flightRepository.findFlightsEntityByAirlineCodeAndDepartureDate(flightsDTORequest.getAirline_code() , flightsDTORequest.getDepartureDate())){
                FlightsDTOResponse newDTO = new FlightsDTOResponse(flightTopass);
                DTOResult.add(newDTO);
            }

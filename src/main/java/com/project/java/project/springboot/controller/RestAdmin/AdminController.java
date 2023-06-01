@@ -2,11 +2,13 @@ package com.project.java.project.springboot.controller.RestAdmin;
 
 import com.project.java.project.springboot.model.admin.AdminDTO;
 import com.project.java.project.springboot.model.admin.AdminDTOResponse;
-import com.project.java.project.springboot.model.custom.CustomResponse;
+import com.project.java.project.springboot.model.bookings.BookingRequestDTO;
+import com.project.java.project.springboot.model.bookings.BookingResponseDTO;
 import com.project.java.project.springboot.model.user.UserDTORequest;
 import com.project.java.project.springboot.model.user.UserDTOResponse;
 import com.project.java.project.springboot.model.userDetail.UserDetailDTOResponse;
 import com.project.java.project.springboot.service.Admin.AdminService;
+import com.project.java.project.springboot.service.booking.BookingService;
 import com.project.java.project.springboot.service.booking.FlightNotFoundException;
 import com.project.java.project.springboot.service.userService.UserService;
 import org.springframework.http.HttpStatus;
@@ -27,10 +29,13 @@ public class AdminController {
 
     private final UserService userService;
 
-    public AdminController(AdminService adminService, UserDetailsService userDetailsService, UserService userService) {
+    private final BookingService bookingService;
+
+    public AdminController(AdminService adminService, UserDetailsService userDetailsService, UserService userService, BookingService bookingService) {
         this.adminService = adminService;
         this.userDetailsService = userDetailsService;
         this.userService = userService;
+        this.bookingService = bookingService;
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
@@ -63,6 +68,13 @@ public class AdminController {
     @PostMapping("/new1")
     public ResponseEntity<AdminDTOResponse> createAdmin (@RequestBody AdminDTO adminDTO) throws FlightNotFoundException {
         return ResponseEntity.ok().body(adminService.registerAdminDTODetails(adminDTO));
+    }
+
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/approve")
+    public List<BookingResponseDTO> checkBookingsForApproval (@RequestBody BookingRequestDTO bookingStatus) {
+        return bookingService.getBookingsforApproval(bookingStatus);
     }
 
 

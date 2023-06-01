@@ -19,6 +19,8 @@ import java.util.List;
 @NoArgsConstructor
 public class BookingResponseDTO {
 
+        private Long id;
+
         private Date bookingDate;
 
         private BookingStatusEnum bookingStatus;

@@ -30,18 +30,42 @@ public class FlightController {
     }
 
 
-    @PostMapping("/create/Flight")
-    ResponseEntity<?> createFlight (@RequestBody FlightsDTORequest flightsDTORequest) {
+//    @PostMapping("/create/Flight")
+//    ResponseEntity<?> createFlight (@RequestBody FlightsDTORequest flightsDTORequest) {
+//        String airlineCode = flightsDTORequest.getAirline_code().toString().toUpperCase(); // Convert the input value to uppercase
+//
+//        boolean isValidAirline = Arrays.stream(AirlinesEnum.values())
+//                .map(Enum::name)
+//                .anyMatch(airline -> airline.equals(airlineCode));
+//
+//        if (isValidAirline) {
+//            return ResponseEntity.ok(flightService.createFlight(flightsDTORequest));
+//        } else {
+//            String errorMessage = "Invalid airline code.";
+//            ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(errorMessage);
+//            return ResponseEntity.badRequest().body(errorResponseDTO);
+//        }
+//        }
+
+    @PostMapping("/create/Flight1")
+    ResponseEntity<?> createFlight1 (@RequestBody FlightsDTORequest flightsDTORequest) {
+        String airlineCode = flightsDTORequest.getAirline_code().toString().toUpperCase(); // Convert the input value to uppercase
+
         boolean isValidAirline = Arrays.stream(AirlinesEnum.values())
-                .anyMatch(airlinesEnum ->airlinesEnum.name().equalsIgnoreCase(flightsDTORequest.getAirline_code().toString()));
+                .map(Enum::name)
+                .anyMatch(airline -> airline.equals(airlineCode));
+
         if (isValidAirline) {
-            return ResponseEntity.ok(flightService.createFlight(flightsDTORequest));
+//            flightService.flightNumberGenerator(flightsDTORequest);
+            String created = "CreatedSuccesfull";
+            ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(created);
+            return ResponseEntity.ok().body(flightService.createFlight(flightService.flightNumberGenerator(flightsDTORequest)));
         } else {
-            String errorMessage = "Airline does not exist.";
+            String errorMessage = "Invalid airline code.";
             ErrorResponseDTO errorResponseDTO = new ErrorResponseDTO(errorMessage);
             return ResponseEntity.badRequest().body(errorResponseDTO);
         }
-        }
+    }
 
     @GetMapping("/flights")
     ResponseEntity<List<FlightsDTOResponse>> loadAllFlights () {

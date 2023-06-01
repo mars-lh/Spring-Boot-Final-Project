@@ -5,9 +5,14 @@ import com.project.java.project.springboot.model.bookings.BookingRequestDTO;
 import com.project.java.project.springboot.model.bookings.BookingResponseDTO;
 import com.project.java.project.springboot.model.flights.FlightsDTORequest;
 import com.project.java.project.springboot.model.flights.FlightsEntity;
+import com.project.java.project.springboot.model.user.UserDTORequest;
+import com.project.java.project.springboot.model.user.UserDTOResponse;
 import com.project.java.project.springboot.model.userBookings.UserBookingsEntity;
 import com.project.java.project.springboot.model.userBookings.UserBookingsRequestDTO;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public interface BookingService {
@@ -18,5 +23,11 @@ public interface BookingService {
      BookingResponseDTO saveBooking(BookingRequestDTO bookingRequestDTO, Long userid) throws FlightNotFoundException;
 
      FlightsEntity checkFlight(BookingRequestDTO bookingRequestDTO) throws FlightNotFoundException;
+
+     Optional<UserDTOResponse> bookFlightBooking (Long id, UserDTORequest userDTO) throws FlightNotFoundException;
+
+     void cancelBooking (Long id);
+
+     List<BookingResponseDTO> getBookingsforApproval (BookingRequestDTO bookingStatus);
 
 }
