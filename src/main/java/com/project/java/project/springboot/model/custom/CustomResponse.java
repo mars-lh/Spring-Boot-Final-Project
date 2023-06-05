@@ -3,10 +3,10 @@ package com.project.java.project.springboot.model.custom;
 import lombok.Data;
 
 @Data
-public class CustomResponse <T>{
-    private T data;
-    private String message;
+public class CustomResponse {
+    private String responseMessage;
 
-    public CustomResponse(T userResponse, String message) {
+    public CustomResponse(String responseMessage) {
+        this.responseMessage = responseMessage;
     }
 }

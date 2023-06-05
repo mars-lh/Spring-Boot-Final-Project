@@ -21,8 +21,8 @@ public class RolesRequestDTO {
 
         role.setRole(this.getRole());
         if (this.getRole() == RoleEnum.ROLE_TRAVELLER) {
-            role.setDescription("User Privileges");}
-        else {
+            role.setDescription("User Privileges");
+        } else {
             role.setDescription("Admin Privileges");
         }
         return role;

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Data
 @Entity
-@Table (name = "user_bookings")
+@Table(name = "user_bookings")
 public class UserBookingsEntity {
 
     @Id
@@ -23,7 +23,7 @@ public class UserBookingsEntity {
     @JoinColumn(name = "userDetail_id")
     private UserDetailEntity user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "booking_id")
     private BookingEntity booking;
 

@@ -1,10 +1,10 @@
 package com.project.java.project.springboot.service.Admin;
 
-import com.project.java.project.springboot.model.admin.AdminDTO;
-import com.project.java.project.springboot.model.admin.AdminDTOResponse;
-import com.project.java.project.springboot.model.bookings.BookingResponseDTO;
-import com.project.java.project.springboot.model.user.UserDTORequest;
-import com.project.java.project.springboot.model.user.UserDTOResponse;
+import com.project.java.project.springboot.model.admin.AdminRequestDTO;
+import com.project.java.project.springboot.model.admin.AdminResponseDTO;
+import com.project.java.project.springboot.model.user.UserRequestDTO;
+import com.project.java.project.springboot.model.user.UserResponseDTO;
+import com.project.java.project.springboot.model.userDetail.UserDetailDTORequest;
 import com.project.java.project.springboot.model.userDetail.UserDetailDTOResponse;
 import com.project.java.project.springboot.service.booking.FlightNotFoundException;
 import org.springframework.stereotype.Service;
@@ -15,15 +15,20 @@ import java.util.List;
 public interface AdminService {
 
 
-    List<AdminDTOResponse> findAllUsers();
+    List<AdminResponseDTO> findAllUsers();
+
+    List<UserDetailDTOResponse> findAllUserBookings();
 
     UserDetailDTOResponse findUserByEmail(String email);
 
-//    List<BookingResponseDTO> findUserBookings (Long id);
+    AdminResponseDTO registerAdminDTO (AdminRequestDTO adminRequestDTO);
 
-    AdminDTOResponse registerAdminDTO (AdminDTO admin);
+    AdminResponseDTO registerAdminDTODetails(AdminRequestDTO admin) throws FlightNotFoundException;
 
-    AdminDTOResponse registerAdminDTODetails(AdminDTO admin) throws FlightNotFoundException;
+    UserResponseDTO registerUserDTO(UserRequestDTO userDTO);
 
-    UserDTOResponse registerUserDTO(UserDTORequest userDTO);
+    UserDetailDTOResponse updateUser (UserDetailDTORequest userDetail, Long id);
+
+
+
 }

@@ -1,11 +1,12 @@
 package com.project.java.project.springboot.controller.RestAdmin;
 
-import com.project.java.project.springboot.model.admin.AdminDTO;
-import com.project.java.project.springboot.model.admin.AdminDTOResponse;
+import com.project.java.project.springboot.model.admin.AdminRequestDTO;
+import com.project.java.project.springboot.model.admin.AdminResponseDTO;
 import com.project.java.project.springboot.model.bookings.BookingRequestDTO;
 import com.project.java.project.springboot.model.bookings.BookingResponseDTO;
-import com.project.java.project.springboot.model.user.UserDTORequest;
-import com.project.java.project.springboot.model.user.UserDTOResponse;
+import com.project.java.project.springboot.model.user.UserRequestDTO;
+import com.project.java.project.springboot.model.user.UserResponseDTO;
+import com.project.java.project.springboot.model.userDetail.UserDetailDTORequest;
 import com.project.java.project.springboot.model.userDetail.UserDetailDTOResponse;
 import com.project.java.project.springboot.service.Admin.AdminService;
 import com.project.java.project.springboot.service.booking.BookingService;
@@ -40,15 +41,28 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/all/admins")
-    public ResponseEntity<List<AdminDTOResponse>> loadAllAdmins () {
+    public ResponseEntity<List<AdminResponseDTO>> loadAllAdmins () {
         return ResponseEntity.status(201).body(adminService.findAllUsers());
     }
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/all/users")
-    public ResponseEntity<List<AdminDTOResponse>> loadAllUsers () {
+    public ResponseEntity<List<AdminResponseDTO>> loadAllUsers () {
         return ResponseEntity.status(201).body(adminService.findAllUsers());
     }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @GetMapping("/all/users/bookings")
+    public ResponseEntity<List<UserDetailDTOResponse>> loadUserBookings () {
+        return ResponseEntity.status(201).body(adminService.findAllUserBookings());
+    }
+
+    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
+    @PutMapping("/update/{id}")
+    public ResponseEntity<UserDetailDTOResponse> updateUser (@RequestBody UserDetailDTORequest dtoRequest, @PathVariable(value = "id") Long id) {
+        return ResponseEntity.status(201).body(adminService.updateUser(dtoRequest, id));
+    }
+
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping("/email")
@@ -60,21 +74,21 @@ public class AdminController {
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @PostMapping ("/create")
-    public ResponseEntity<UserDTOResponse> createUser (@RequestBody UserDTORequest userDTO) throws FlightNotFoundException {
+    public ResponseEntity<UserResponseDTO> createUser (@RequestBody UserRequestDTO userDTO) throws FlightNotFoundException {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.registerUserDTODetails(userDTO));
 
     }
 
     @PostMapping("/new1")
-    public ResponseEntity<AdminDTOResponse> createAdmin (@RequestBody AdminDTO adminDTO) throws FlightNotFoundException {
-        return ResponseEntity.ok().body(adminService.registerAdminDTODetails(adminDTO));
+    public ResponseEntity<AdminResponseDTO> createAdmin (@RequestBody AdminRequestDTO adminDTORequest) throws FlightNotFoundException {
+        return ResponseEntity.ok().body(adminService.registerAdminDTODetails(adminDTORequest));
     }
 
 
     @PreAuthorize("hasAuthority('ROLE_ADMIN')")
     @GetMapping("/approve")
-    public List<BookingResponseDTO> checkBookingsForApproval (@RequestBody BookingRequestDTO bookingStatus) {
-        return bookingService.getBookingsforApproval(bookingStatus);
+    public ResponseEntity<List<BookingResponseDTO>> checkBookingsForApproval (@RequestBody BookingRequestDTO bookingStatus) {
+        return ResponseEntity.ok(bookingService.getBookingsforApproval(bookingStatus));
     }
 
 

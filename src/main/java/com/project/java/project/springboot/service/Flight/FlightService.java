@@ -1,6 +1,6 @@
 package com.project.java.project.springboot.service.Flight;
 
-import com.project.java.project.springboot.model.flights.FlightsDTORequest;
+import com.project.java.project.springboot.model.flights.FlightsRequestDTO;
 import com.project.java.project.springboot.model.flights.FlightsDTOResponse;
 import com.project.java.project.springboot.model.flights.FlightsEntity;
 import org.springframework.stereotype.Service;
@@ -11,19 +11,21 @@ import java.util.Optional;
 @Service
 public interface FlightService {
 
-    FlightsDTOResponse createFlight (FlightsDTORequest flightsDTORequest);
+    FlightsDTOResponse createFlight(FlightsRequestDTO flightsRequestDTO);
 
-    FlightsDTORequest flightNumberGenerator(FlightsDTORequest flightsDTORequest);
+    FlightsRequestDTO flightNumberGenerator(FlightsRequestDTO flightsRequestDTO);
 
-    FlightsDTOResponse findFlightByID (Long id);
+    FlightsDTOResponse findFlightByID(Long id);
 
-    FlightsEntity flightEntityforDate (Long id);
+    FlightsEntity findFlightEntity(Long id);
 
-    List<FlightsDTOResponse> findALlFlights ();
+    List<FlightsDTOResponse> findALlFlights();
 
-    void deleteFlightById (Long id);
+    Optional<List<FlightsDTOResponse>> searchFlightsByUser(FlightsRequestDTO flightsRequestDTO);
 
-    Optional<FlightsDTOResponse> updateFlightDetails (Long id, FlightsDTORequest flightDTO);
+    void deleteFlightById(Long id);
 
-    FlightsDTOResponse updateFlightDepartureDate(Long id, FlightsDTORequest flightDTO);
+    Optional<FlightsDTOResponse> updateFlightDetails(Long id, FlightsRequestDTO flightDTO);
+
+    FlightsDTOResponse updateFlightDepartureDate(Long id, FlightsRequestDTO flightDTO);
 }

@@ -2,9 +2,8 @@ package com.project.java.project.springboot.controller.RestBooking;
 
 import com.project.java.project.springboot.model.bookings.BookingRequestDTO;
 import com.project.java.project.springboot.model.bookings.BookingResponseDTO;
-import com.project.java.project.springboot.model.user.UserDTORequest;
-import com.project.java.project.springboot.model.user.UserDTOResponse;
-import com.project.java.project.springboot.model.userBookings.UserBookingsRequestDTO;
+import com.project.java.project.springboot.model.user.UserRequestDTO;
+import com.project.java.project.springboot.model.user.UserResponseDTO;
 import com.project.java.project.springboot.service.booking.BookingService;
 import com.project.java.project.springboot.service.booking.FlightNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@RequestMapping(path = "/booking")
 public class BookingController {
 
     private final BookingService bookingService;
@@ -24,20 +24,14 @@ public class BookingController {
         this.bookingService = bookingService;
     }
 
-    @PreAuthorize("hasAuthority('ROLE_ADMIN')")
-    @PostMapping("/newBooking/{userid}")
-    ResponseEntity<BookingResponseDTO> saveBooking (@PathVariable(value = "userid")Long id, @RequestBody BookingRequestDTO bookingRequestDTO) throws FlightNotFoundException {
-        return ResponseEntity.ok(bookingService.saveBooking(bookingRequestDTO, id));
-    }
 
-
-    @PutMapping("/bookflight1/{userid}")
-    public ResponseEntity<Optional<UserDTOResponse>> bookFlight (@PathVariable(value = "userid")Long id, @RequestBody UserDTORequest userDTORequest) throws FlightNotFoundException {
-        Optional<UserDTOResponse> update = bookingService.bookFlightBooking(id, userDTORequest);
+    @PutMapping("/{userid}")
+    public ResponseEntity<Optional<BookingResponseDTO>> bookFlight (@PathVariable(value = "userid")Long id, @RequestBody UserRequestDTO userRequestDTO) throws FlightNotFoundException {
+        Optional<BookingResponseDTO> update = bookingService.bookFlightBooking(id, userRequestDTO);
         return ResponseEntity.ok(update);
     }
 
-    @DeleteMapping("/booking/{bookingId}")
+    @DeleteMapping("/{bookingId}")
     public ResponseEntity cancelBooking (@PathVariable(value = "bookingId") Long id) {
         bookingService.cancelBooking(id);
        return ResponseEntity.status(HttpStatus.ACCEPTED).body(200);

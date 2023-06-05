@@ -1,7 +1,6 @@
 package com.project.java.project.springboot.model.admin;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.project.java.project.springboot.model.enums.RoleEnum;
 import com.project.java.project.springboot.model.user.UserEntity;
 import com.project.java.project.springboot.model.userDetail.UserDetailDTOResponse;
@@ -13,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class AdminDTOResponse {
+public class AdminResponseDTO {
 
     private String username;
 
@@ -23,19 +22,22 @@ public class AdminDTOResponse {
     private UserDetailDTOResponse userDetail = new UserDetailDTOResponse();
 
 
-    public AdminDTOResponse(AdminEntity admin) {
+    public AdminResponseDTO(AdminEntity admin) {
         this.username = admin.getUsername();
 
         if (admin.getUserDetail() != null) {
-            this.userDetail = userDetail.mpaDTO(admin.getUserDetail());
+            this.userDetail = userDetail.mapToDTO(admin.getUserDetail());
         }
     }
 
-    public AdminDTOResponse(UserEntity userEntity) {
+    public AdminResponseDTO(UserEntity userEntity) {
         this.username = userEntity.getUsername();
 
         if (userEntity.getUserDetail() != null) {
-            this.userDetail = userDetail.mpaDTO(userEntity.getUserDetail());
+            this.userDetail = userDetail.mapToDTO(userEntity.getUserDetail());
         }
     }
+
+
+
 }

@@ -2,12 +2,12 @@ package com.project.java.project.springboot.service.userService;
 
 
 import com.project.java.project.springboot.model.bookings.BookingResponseDTO;
-import com.project.java.project.springboot.model.flights.FlightsDTORequest;
+import com.project.java.project.springboot.model.flights.FlightsRequestDTO;
 import com.project.java.project.springboot.model.flights.FlightsDTOResponse;
-import com.project.java.project.springboot.model.user.UserDTORequest;
-import com.project.java.project.springboot.model.user.UserDTOResponse;
+import com.project.java.project.springboot.model.user.UserRequestDTO;
+import com.project.java.project.springboot.model.user.UserResponseDTO;
+import com.project.java.project.springboot.model.userDetail.UserDetailDTOResponse;
 import com.project.java.project.springboot.service.booking.FlightNotFoundException;
-import org.apache.catalina.realm.UserDatabaseRealm;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,15 +16,11 @@ import java.util.Optional;
 @Service
 public interface UserService {
 
-    List<UserDTOResponse> findAll ();
+    UserResponseDTO registerUserDTODetails (UserRequestDTO userDTO) throws FlightNotFoundException;
 
-    UserDTOResponse registerUserDTODetails (UserDTORequest userDTO) throws FlightNotFoundException;
+    Optional<UserResponseDTO> bookFlight (Long id, UserRequestDTO userDTO) throws FlightNotFoundException;
 
-    Optional<UserDTOResponse> bookFlight (Long id, UserDTORequest userDTO) throws FlightNotFoundException;
-
-    Optional<List<FlightsDTOResponse>> findFlights (FlightsDTORequest flightsDTORequest);
-
-
+    UserDetailDTOResponse findAllBookingsForTraveller(Long id);
 
 
 }

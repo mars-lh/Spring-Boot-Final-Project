@@ -17,12 +17,12 @@ public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
     public AuthenticationController(AuthenticationService authenticationService) {
-            this.authenticationService = authenticationService;
-        }
-
-        @RequestMapping(method = RequestMethod.POST, path = "/authenticate")
-        public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest authenticationRequest) {
-            return ResponseEntity.ok(authenticationService.authenticate(authenticationRequest));
-        }
-
+        this.authenticationService = authenticationService;
     }
+
+    @RequestMapping(method = RequestMethod.POST, path = "/authenticate")
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest authenticationRequest) {
+        return ResponseEntity.ok(authenticationService.authenticate(authenticationRequest));
+    }
+
+}

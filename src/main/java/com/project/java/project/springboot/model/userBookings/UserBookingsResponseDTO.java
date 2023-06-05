@@ -13,19 +13,11 @@ import java.util.List;
 @Data
 public class UserBookingsResponseDTO {
 
-    private BookingResponseDTO bookingResponseDTO;
-
-
-//    public UserBookingsResponseDTO(UserBookingsEntity userBookingsEntity) {
-//
-//        userBookingsEntity.setBooking(this.booking.toEntity());
-//        userBookingsEntity.setBookingStatus(this.bookingStatus);
-//
-//    }
+    private BookingResponseDTO bookings;
 
     public UserBookingsResponseDTO(UserBookingsEntity userBookingsEntity) {
 
-        this.bookingResponseDTO = new BookingResponseDTO(userBookingsEntity);
+        this.bookings = new BookingResponseDTO(userBookingsEntity.getBooking());
 
     }
 }

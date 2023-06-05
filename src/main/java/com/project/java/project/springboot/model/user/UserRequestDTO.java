@@ -1,10 +1,6 @@
 package com.project.java.project.springboot.model.user;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonInclude;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.project.java.project.springboot.model.bookings.BookingEntity;
 import com.project.java.project.springboot.model.bookings.BookingRequestDTO;
 import com.project.java.project.springboot.model.enums.RoleEnum;
 import com.project.java.project.springboot.model.roles.RolesRequestDTO;
@@ -23,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserDTORequest {
+public class UserRequestDTO {
 
     private Long id;
 
@@ -37,8 +33,7 @@ public class UserDTORequest {
 
     private UserDetailDTORequest userDetailDTO;
 
-    private List<BookingRequestDTO> bookingRequestDTO =  new ArrayList<>();
-
+    private List<BookingRequestDTO> bookingRequestDTO = new ArrayList<>();
 
 
     public UserEntity toEntity() {
@@ -84,10 +79,10 @@ public class UserDTORequest {
             userDetail.setUser(user);
         }
 
-            return user;
-        }
-
+        return user;
     }
+
+}
 
 
 

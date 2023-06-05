@@ -1,7 +1,5 @@
 package com.project.java.project.springboot.model.admin;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.project.java.project.springboot.model.bookings.BookingEntity;
 import com.project.java.project.springboot.model.bookings.BookingRequestDTO;
 import com.project.java.project.springboot.model.enums.RoleEnum;
 import com.project.java.project.springboot.model.roles.RolesRequestDTO;
@@ -16,7 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class AdminDTO {
+public class AdminRequestDTO {
 
     private Long id;
 
@@ -34,7 +32,7 @@ public class AdminDTO {
 
 
 
-    public AdminDTO(AdminEntity admin) {
+    public AdminRequestDTO(AdminEntity admin) {
     }
 
 

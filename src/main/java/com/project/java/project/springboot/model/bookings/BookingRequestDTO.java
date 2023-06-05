@@ -3,17 +3,13 @@ package com.project.java.project.springboot.model.bookings;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.project.java.project.springboot.model.enums.BookingStatusEnum;
-import com.project.java.project.springboot.model.flights.FlightsDTORequest;
-import com.project.java.project.springboot.model.flights.FlightsEntity;
+import com.project.java.project.springboot.model.flights.FlightsRequestDTO;
 import com.project.java.project.springboot.model.userBookings.UserBookingsEntity;
 import com.project.java.project.springboot.model.userBookings.UserBookingsRequestDTO;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -32,9 +28,7 @@ public class BookingRequestDTO {
     private List<UserBookingsRequestDTO> userBookings = new ArrayList<>();
 
     @JsonProperty("flights")
-    private FlightsDTORequest flights;
-
-
+    private FlightsRequestDTO flights;
 
 
     public BookingEntity toEntity() {
@@ -82,11 +76,11 @@ public class BookingRequestDTO {
         this.userBookings = userBookings;
     }
 
-    public FlightsDTORequest getFlights() {
+    public FlightsRequestDTO getFlights() {
         return flights;
     }
 
-    public void setFlights(FlightsDTORequest flights) {
+    public void setFlights(FlightsRequestDTO flights) {
         this.flights = flights;
     }
 }

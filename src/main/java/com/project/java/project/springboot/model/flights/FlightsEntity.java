@@ -20,7 +20,7 @@ public class FlightsEntity {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "flight_number", nullable = false)
+    @Column(name = "flight_number", unique = true, nullable = false)
     private String flightNumber;
 
     @Column(name = "origin_airport", nullable = false)

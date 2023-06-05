@@ -15,7 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class FlightsDTORequest {
+public class FlightsRequestDTO {
 
     private Long id;
 
@@ -45,10 +45,10 @@ public class FlightsDTORequest {
 
     private FlightStatusEnum flightStatus;
 
-    private List <BookingEntity> bookings;
+    private List<BookingEntity> bookings;
 
 
-    public FlightsEntity toEntity () {
+    public FlightsEntity toEntity() {
         FlightsEntity flights = new FlightsEntity();
         flights.setId(this.id);
         flights.setFlightNumber(this.flightNumber);
@@ -61,12 +61,12 @@ public class FlightsDTORequest {
         flights.setArrivalDate(this.arrivalDate);
         flights.setFlightDate(this.departureDate);
         flights.setFlightStatus(this.flightStatus);
-        if(economySeats != null) {
+        if (economySeats != null) {
             flights.setPremiumEconomySeats(this.economySeats);
         } else if (businessSeats != null) {
             this.economySeats = 0;
             flights.setBusinessSeats(this.businessSeats);
-        } else if (firstClassSeats != null ){
+        } else if (firstClassSeats != null) {
             this.economySeats = 0;
             this.businessSeats = 0;
             flights.setFirstClassSeats(this.firstClassSeats);

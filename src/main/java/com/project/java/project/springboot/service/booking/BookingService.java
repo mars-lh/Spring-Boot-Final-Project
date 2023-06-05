@@ -3,12 +3,10 @@ package com.project.java.project.springboot.service.booking;
 import com.project.java.project.springboot.model.bookings.BookingEntity;
 import com.project.java.project.springboot.model.bookings.BookingRequestDTO;
 import com.project.java.project.springboot.model.bookings.BookingResponseDTO;
-import com.project.java.project.springboot.model.flights.FlightsDTORequest;
 import com.project.java.project.springboot.model.flights.FlightsEntity;
-import com.project.java.project.springboot.model.user.UserDTORequest;
-import com.project.java.project.springboot.model.user.UserDTOResponse;
+import com.project.java.project.springboot.model.user.UserRequestDTO;
+import com.project.java.project.springboot.model.user.UserResponseDTO;
 import com.project.java.project.springboot.model.userBookings.UserBookingsEntity;
-import com.project.java.project.springboot.model.userBookings.UserBookingsRequestDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +22,7 @@ public interface BookingService {
 
      FlightsEntity checkFlight(BookingRequestDTO bookingRequestDTO) throws FlightNotFoundException;
 
-     Optional<UserDTOResponse> bookFlightBooking (Long id, UserDTORequest userDTO) throws FlightNotFoundException;
+     Optional<BookingResponseDTO> bookFlightBooking (Long id, UserRequestDTO userDTO) throws FlightNotFoundException;
 
      void cancelBooking (Long id);
 

@@ -1,16 +1,9 @@
 package com.project.java.project.springboot.model.userBookings;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.project.java.project.springboot.model.admin.AdminDTO;
 import com.project.java.project.springboot.model.bookings.BookingEntity;
 import com.project.java.project.springboot.model.bookings.BookingRequestDTO;
 import com.project.java.project.springboot.model.enums.BookingStatusEnum;
-import com.project.java.project.springboot.model.user.UserDTORequest;
 import com.project.java.project.springboot.model.userDetail.UserDetailDTORequest;
-import com.project.java.project.springboot.model.userDetail.UserDetailEntity;
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -49,5 +42,5 @@ public class UserBookingsRequestDTO {
         return userBookings;
     }
 
-    }
+}
 

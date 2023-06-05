@@ -1,22 +1,19 @@
 package com.project.java.project.springboot.service.Admin;
 
-import com.project.java.project.springboot.model.admin.AdminDTO;
-import com.project.java.project.springboot.model.admin.AdminDTOResponse;
+import com.project.java.project.springboot.model.admin.AdminRequestDTO;
+import com.project.java.project.springboot.model.admin.AdminResponseDTO;
 import com.project.java.project.springboot.model.admin.AdminEntity;
-import com.project.java.project.springboot.model.bookings.BookingEntity;
-import com.project.java.project.springboot.model.bookings.BookingResponseDTO;
-import com.project.java.project.springboot.model.user.UserDTORequest;
-import com.project.java.project.springboot.model.user.UserDTOResponse;
+import com.project.java.project.springboot.model.user.UserRequestDTO;
+import com.project.java.project.springboot.model.user.UserResponseDTO;
 import com.project.java.project.springboot.model.user.UserEntity;
+import com.project.java.project.springboot.model.userDetail.UserDetailDTORequest;
 import com.project.java.project.springboot.model.userDetail.UserDetailDTOResponse;
 import com.project.java.project.springboot.model.userDetail.UserDetailEntity;
 import com.project.java.project.springboot.repository.*;
-import com.project.java.project.springboot.service.booking.BookingService;
 import com.project.java.project.springboot.service.booking.FlightNotFoundException;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,10 +37,17 @@ public class AdminServiceImpl implements AdminService {
 
 
     @Override
-    public List<AdminDTOResponse> findAllUsers() {
+    public List<AdminResponseDTO> findAllUsers() {
         return userRepository.findAll()
                 .stream()
-                .map(AdminDTOResponse::new).collect(Collectors.toList());
+                .map(AdminResponseDTO::new).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<UserDetailDTOResponse> findAllUserBookings() {
+        return userDetailRepository.findAll()
+                .stream()
+                .map(UserDetailDTOResponse::new).collect(Collectors.toList());
     }
 
     @Override
@@ -66,23 +70,36 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public AdminDTOResponse registerAdminDTO(AdminDTO admin) {
-        AdminEntity adminToSave = admin.toEntity();
-        return new AdminDTOResponse(adminRepository.save(adminToSave));
+    public AdminResponseDTO registerAdminDTO(AdminRequestDTO adminRequestDTO) {
+        AdminEntity adminToSave = adminRequestDTO.toEntity();
+        return new AdminResponseDTO(adminRepository.save(adminToSave));
     }
 
     @Override
-    public AdminDTOResponse registerAdminDTODetails(AdminDTO adminDTO) throws FlightNotFoundException {
-        AdminEntity adminToSave = adminDTO.toEntityUserDetails();
+    public AdminResponseDTO registerAdminDTODetails(AdminRequestDTO adminRequestDTO) throws FlightNotFoundException {
+        AdminEntity adminToSave = adminRequestDTO.toEntityUserDetails();
         adminRepository.save(adminToSave);
-        return new AdminDTOResponse(adminToSave);
+        return new AdminResponseDTO(adminToSave);
     }
 
     @Override
-    public UserDTOResponse registerUserDTO(UserDTORequest userDTO) {
+    public UserResponseDTO registerUserDTO(UserRequestDTO userDTO) {
         UserEntity userTosave = userDTO.toEntityUserDetails();
         userRepository.save(userTosave);
-        return new UserDTOResponse(userDTO);
+        return new UserResponseDTO(userDTO);
+    }
+
+    @Override
+    public UserDetailDTOResponse updateUser (UserDetailDTORequest userDetail, Long id) {
+       UserDetailEntity userToUpdate = userDetailRepository.findByUser(id);
+       userToUpdate.setFirstName(userDetail.getFirstName());
+       userToUpdate.setLastName(userDetail.getLastName());
+       userToUpdate.setEmail(userDetail.getEmail());
+       userToUpdate.setPhoneNumber(userDetail.getPhoneNumber());
+       userDetailRepository.save(userToUpdate);
+       UserDetailDTOResponse responseDTO = new UserDetailDTOResponse();
+       responseDTO = mapToDTO(userToUpdate);
+       return responseDTO;
     }
 
 }

@@ -23,6 +23,13 @@ public interface FlightRepository extends JpaRepository <FlightsEntity, Long> {
     List<FlightsEntity> findFlightsEntityByAirlineCodeAndDepartureDate(@Param("airlineCode") AirlinesEnum airlineCode,
                                                                       @Param("departureDate") Date departureDate);
 
-//   List <FlightsEntity>findFlightsEntitiesByAirline_codeAndDepartureDate (Date date);
+    List<FlightsEntity> findAllByDestinationCountryAndOriginCountryAndDepartureDate (String destination, String origin, Date departureDate);
+    @Query("SELECT f FROM FlightsEntity f WHERE f.destinationCountry = :destinationCountry AND f.originCountry = :originCountry AND f.departureDate = :departureDate AND f.airline_code = :airlineCode")
+    List<FlightsEntity> findAllByDestinationCountryAndOriginCountryAndDepartureDateAndAirlineCode(
+            @Param("destinationCountry") String destinationCountry,
+            @Param("originCountry") String originCountry,
+            @Param("departureDate") Date departureDate,
+            @Param("airlineCode") AirlinesEnum airlineCode
+    );
 
 }

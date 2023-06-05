@@ -53,4 +53,30 @@ public class FlightsDTOResponse {
         this.flightStatus = flighTosave.getFlightStatus();
 
     }
+
+    public FlightsDTOResponse customizedDTOResponse (FlightsEntity flights) {
+        FlightsDTOResponse flightsDTOResponse = new FlightsDTOResponse();
+        flightsDTOResponse.setFlightNumber(flights.getFlightNumber());
+        flightsDTOResponse.setFlightStatus(flights.getFlightStatus());
+        flightsDTOResponse.setDestinationAirport(flights.getDestinationAirport());
+        flightsDTOResponse.setDestinationCountry(flights.getDestinationCountry());
+        flightsDTOResponse.setOriginAirport(flights.getOriginAirport());
+        flightsDTOResponse.setOriginCountry(flights.getOriginCountry());
+        return flightsDTOResponse;
+
+    }
+
+    public void toEntity(FlightsEntity flights) {
+        FlightsDTOResponse flightsDTOResponse = new FlightsDTOResponse();
+        flightsDTOResponse.setId(flights.getId());
+        flightsDTOResponse.setFlightNumber(flights.getFlightNumber());
+        flightsDTOResponse.setFlightStatus(flights.getFlightStatus());
+        flightsDTOResponse.setDestinationAirport(flights.getDestinationAirport());
+        flightsDTOResponse.setDestinationCountry(flights.getDestinationCountry());
+        flightsDTOResponse.setOriginAirport(flights.getOriginAirport());
+        flightsDTOResponse.setOriginCountry(flights.getOriginCountry());
+        flightsDTOResponse.setAirline_code(flights.getAirline_code());
+        flightsDTOResponse.setBookings(flights.getBookings());
+
+    }
 }

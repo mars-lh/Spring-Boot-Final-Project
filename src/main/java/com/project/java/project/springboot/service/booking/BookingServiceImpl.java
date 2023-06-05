@@ -5,8 +5,8 @@ import com.project.java.project.springboot.model.bookings.BookingRequestDTO;
 import com.project.java.project.springboot.model.bookings.BookingResponseDTO;
 import com.project.java.project.springboot.model.enums.BookingStatusEnum;
 import com.project.java.project.springboot.model.flights.FlightsEntity;
-import com.project.java.project.springboot.model.user.UserDTORequest;
-import com.project.java.project.springboot.model.user.UserDTOResponse;
+import com.project.java.project.springboot.model.user.UserRequestDTO;
+import com.project.java.project.springboot.model.user.UserResponseDTO;
 import com.project.java.project.springboot.model.user.UserEntity;
 import com.project.java.project.springboot.model.userBookings.UserBookingsEntity;
 import com.project.java.project.springboot.model.userDetail.UserDetailEntity;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class BookingServiceImpl implements BookingService{
+public class BookingServiceImpl implements BookingService {
 
     private final BookingRepository bookingRepository;
     private final UserBookingRepository userBookingRepository;
@@ -26,7 +26,7 @@ public class BookingServiceImpl implements BookingService{
     private final UserRepository userRepository;
     private final UserDetailRepository userDetailRepository;
 
-    public BookingServiceImpl (BookingRepository bookingRepository, UserBookingRepository userBookingRepository, FlightRepository flightRepository, UserRepository userRepository, UserDetailRepository userDetailRepository) {
+    public BookingServiceImpl(BookingRepository bookingRepository, UserBookingRepository userBookingRepository, FlightRepository flightRepository, UserRepository userRepository, UserDetailRepository userDetailRepository) {
         this.bookingRepository = bookingRepository;
         this.userBookingRepository = userBookingRepository;
         this.flightRepository = flightRepository;
@@ -47,7 +47,7 @@ public class BookingServiceImpl implements BookingService{
         bookingRepository.save(bookingEntity);
 
         UserBookingsEntity userBookingsEntity = new UserBookingsEntity();
-        UserDetailEntity  userEntity = userDetailRepository.findByUser(userid);
+        UserDetailEntity userEntity = userDetailRepository.findByUser(userid);
         userBookingsEntity.setUser(userEntity);
         userBookingsEntity.setBookingStatus(bookingEntity.getBookingStatus());
         userBookingsEntity.setBooking(bookingEntity);
@@ -56,12 +56,14 @@ public class BookingServiceImpl implements BookingService{
         userBookingRepository.save(userBookingsEntity);
 
 
-        return new BookingResponseDTO(bookingEntity);
+        BookingResponseDTO updatedBookingResponseDTO = new BookingResponseDTO(bookingEntity);
+        return updatedBookingResponseDTO;
 
     }
 
+
     @Override
-    public FlightsEntity checkFlight (BookingRequestDTO bookingRequestDTO) throws FlightNotFoundException {
+    public FlightsEntity checkFlight(BookingRequestDTO bookingRequestDTO) throws FlightNotFoundException {
         String flightNumber = bookingRequestDTO.getFlights().getFlightNumber();
         FlightsEntity flight = flightRepository.findFlightsEntityByFlightNumber(flightNumber);
 
@@ -73,33 +75,37 @@ public class BookingServiceImpl implements BookingService{
     }
 
     @Override
-    public Optional<UserDTOResponse> bookFlightBooking(Long userid, UserDTORequest userDTO) throws FlightNotFoundException {
+    public Optional<BookingResponseDTO> bookFlightBooking(Long userid, UserRequestDTO userDTO) throws FlightNotFoundException {
         Optional<UserEntity> optionalUser = userRepository.findById(userid);
-        if (optionalUser.isPresent()){
+        BookingResponseDTO bookingDataToReturn = new BookingResponseDTO();
+        if (optionalUser.isPresent()) {
             List<BookingRequestDTO> bookingRequestDTOs = new ArrayList<>();
             for (BookingRequestDTO bookingDTO : userDTO.getBookingRequestDTO()) {
                 BookingRequestDTO bookingRequestDTO = new BookingRequestDTO();
                 bookingRequestDTO.setBookingStatusEnum(BookingStatusEnum.BOOKED);
                 bookingRequestDTO.setFlights(bookingDTO.getFlights());
-                // Set any other required fields of the bookingRequestDTO
                 bookingRequestDTOs.add(bookingRequestDTO);
             }
             // Call the saveBooking method for each booking
             for (BookingRequestDTO bookingRequestDTO : bookingRequestDTOs) {
-                saveBooking(bookingRequestDTO, userid);
+                bookingDataToReturn =  saveBooking(bookingRequestDTO, userid);
             }
-        }  return Optional.of(new UserDTOResponse(userDTO)) ;
+
+        }
+        return Optional.of(bookingDataToReturn);
     }
 
     @Override
     public void cancelBooking(Long id) {
-        Optional <BookingEntity> booking = bookingRepository.findById(id);
-        if(adminResponse()){
+        Optional<BookingEntity> booking = bookingRepository.findById(id);
+        if (adminResponse()) {
             booking.get().setBookingStatus(BookingStatusEnum.CANCELED);
-            bookingRepository.save(booking.get());}
-        else {booking.get().setBookingStatus(BookingStatusEnum.REQUEST_CANCELATION);
-        bookingRepository.save(booking.get());}
-        if (declines()){
+            bookingRepository.save(booking.get());
+        } else {
+            booking.get().setBookingStatus(BookingStatusEnum.REQUEST_CANCELATION);
+            bookingRepository.save(booking.get());
+        }
+        if (declines()) {
             booking.get().setBookingStatus(BookingStatusEnum.BOOKED);
             bookingRepository.save(booking.get());
         }
@@ -109,37 +115,35 @@ public class BookingServiceImpl implements BookingService{
     public List<BookingResponseDTO> getBookingsforApproval(BookingRequestDTO bookingStatus) {
         List<BookingResponseDTO> bookingList = new ArrayList<>();
 
-//        List<BookingEntity> bookingEntityList2 = bookingRepository.findAll().stream().map(bookingList);
         List<BookingEntity> bookingEntityList = bookingRepository.findAll().stream().toList();
-        for(BookingEntity booking : bookingEntityList) {
+        for (BookingEntity booking : bookingEntityList) {
             BookingResponseDTO bookingToSave = mapBookingEntityToResponseDTO(booking);
-          if (bookingToSave.getBookingStatus().equals(bookingStatus.getBookingStatusEnum())) {
-              bookingList.add(bookingToSave);
-          }
+            if (bookingToSave.getBookingStatus().equals(bookingStatus.getBookingStatusEnum())) {
+                bookingList.add(bookingToSave);
+            }
         }
+//        bookingList.add(new BookingResponseDTO());
         return bookingList;
     }
 
     private BookingResponseDTO mapBookingEntityToResponseDTO(BookingEntity bookingEntity) {
         BookingResponseDTO bookingResponseDTO = new BookingResponseDTO();
         // Map the properties from BookingEntity to BookingResponseDTO
-        bookingResponseDTO.setId(bookingEntity.getId());
         bookingResponseDTO.setBookingStatus(bookingEntity.getBookingStatus());
-        bookingResponseDTO.setFlights(bookingEntity.getFlights());
+        bookingResponseDTO.setBookingDate(bookingEntity.getBookingDate());
+//        bookingResponseDTO.setFlights(bookingEntity.getFlights());
         // Map other properties as needed
 
         return bookingResponseDTO;
     }
 
-    public boolean adminResponse (){
-        return false;
-    }
-    public boolean declines () {
+    public boolean adminResponse() {
         return false;
     }
 
-
-
+    public boolean declines() {
+        return false;
+    }
 
 
 }
